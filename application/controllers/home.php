@@ -1,6 +1,6 @@
 <?php
 
-class Admin extends CI_Controller {
+class Home extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -23,16 +23,19 @@ class Admin extends CI_Controller {
             redirect('login');
         }
 
-        if ($this->session->userdata('level') != 10) {
-            redirect('home');
-        }
-
         // ========= Commom Models ========= //
-        $this->load->model('admin_model');
+        $this->load->model('login_model');
     }
 
     public function index() {
-        $this->load->view('admin/index');
+        $data['firstname'] = $this->session->userdata('firstname');
+        $data['lastname'] = $this->session->userdata('lastname');
+        $data['email'] = $this->session->userdata('email'); 
+        $data['title'] = 'Home';
+        $this->load->view('templates/header', $data);
+        $this->load->view('home_view');
+        $this->load->view('templates/footer');
+        
     }
 
 }
