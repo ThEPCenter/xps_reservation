@@ -28,7 +28,7 @@
 
 <section>
     <h3>สมัครใช้งาน</h3>
-    <form role="form" class="form-inline" method="post" action="<?php echo site_url(); ?>/register_process">
+    <form role="form" class="form-inline" method="post" action="<?php echo site_url(); ?>/register/process">
         <div class="input-group" style="margin-right: 15px;">
             <div class="form-group">
                 <div class="input-group" style="margin-right: 15px;">

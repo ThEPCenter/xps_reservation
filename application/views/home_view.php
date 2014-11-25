@@ -36,87 +36,44 @@
         <script src="<?php echo base_url(); ?>fullcalendar/fullcalendar.min.js"></script>
         <script>
 
-            $(document).ready(function () {
+                    $(document).ready(function () {
 
-                $('#calendar').fullCalendar({
-                    header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'month,basicWeek'
-                    },
-                    defaultDate: '2014-11-12',
-                    editable: true,
+            $('#calendar').fullCalendar({
+            header: {
+            left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek'
+            },
+                    defaultDate: '<?php echo date("Y-m-d"); ?>',
+                    editable: false,
                     eventLimit: true, // allow "more" link when too many events
-                    events: [
-                        {
-                            title: 'All Day Event',
-                            start: '2014-11-01'
-                        },
-                        {
-                            title: 'Long Event',
-                            start: '2014-11-07',
-                            end: '2014-11-10'
-                        },
-                        {
-                            id: 999,
-                            title: 'Repeating Event',
-                            start: '2014-11-09T16:00:00'
-                        },
-                        {
-                            id: 999,
-                            title: 'Repeating Event',
-                            start: '2014-11-16T16:00:00'
-                        },
-                        {
-                            title: 'Conference',
-                            start: '2014-11-11',
-                            end: '2014-11-13'
-                        },
-                        {
-                            title: 'Meeting',
-                            start: '2014-11-12T10:30:00',
-                            end: '2014-11-12T12:30:00'
-                        },
-                        {
-                            title: 'Lunch',
-                            start: '2014-11-12T12:00:00'
-                        },
-                        {
-                            title: 'Meeting',
-                            start: '2014-11-12T14:30:00'
-                        },
-                        {
-                            title: 'Happy Hour',
-                            start: '2014-11-12T17:30:00'
-                        },
-                        {
-                            title: 'Dinner',
-                            start: '2014-11-12T20:00:00'
-                        },
-                        {
-                            title: 'Birthday Party',
-                            start: '2014-11-13T07:00:00'
-                        },
-                        {
-                            title: 'ว่าง',
-                            url: 'reservation/2014-11-28',
-                            start: '2014-11-28',
-                            color: 'white', // an option!
-                            textColor: 'black',
-                            className: 'unoccupied'
-                        },
-                        {
-                            title: 'จองแล้ว',
-                            start: '2014-11-29',
-                            color: 'red', // an option!
-                            textColor: 'black',
-                            className: 'occupied'
-                        }
+                    events: [                    
+                    
+                    {
+                    "title": "จองแล้ว",
+                            "start": "2014-11-26",
+                            "color": "red",
+                            "className": "occupied"
+                    },
+                    {
+                    "title": "Maintenance",
+                            "start": "2014-11-27",
+                            "className": "occupied"
+                    },
+                    {
+                    "title": "ว่าง",
+<?php if ($this->session->userdata('level') != 10): ?>
+                    "url": "reservation/2014-11-28",
+<?php endif; ?>
+                    "start": "2014-11-28",
+                            "color": "white",
+                            "textColor": "black",
+                            "className": "unoccupied"
+                    }                
 
 
-                    ]
-                });
-
+                ]
+            });
             });
 
         </script>
@@ -131,7 +88,14 @@
                 font-weight: bold;                
             }
             .unoccupied:hover{
-                text-decoration: underline;
+
+                <?php if ($this->session->userdata('level') != 10): ?>
+                    text-decoration: underline;
+                    cursor: pointer;
+                <?php else: ?>
+                    cursor: context-menu;
+                <?php endif; ?>
+
             }
             .occupied {
                 text-align: center;
