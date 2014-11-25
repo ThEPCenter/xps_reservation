@@ -18,7 +18,6 @@ class Admin extends CI_Controller {
         // ======== Class ======== //
         $this->load->library('pagination');
 
-
         if (!($this->session->userdata('validated'))) {
             redirect('login');
         }
@@ -32,7 +31,10 @@ class Admin extends CI_Controller {
     }
 
     public function index() {
+        $data['title'] = 'Admin';
+        $this->load->view('templates/header', $data);
         $this->load->view('admin/index');
+        $this->load->view('templates/footer');
     }
 
 }
