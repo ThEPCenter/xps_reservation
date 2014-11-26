@@ -1,4 +1,4 @@
-<footer style="text-align: center;">
+<footer style="text-align: center; margin-top: 15px;">
     &copy; 
     <?php
     if (date("Y") == 2014): echo '2014';

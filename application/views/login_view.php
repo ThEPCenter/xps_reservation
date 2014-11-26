@@ -40,7 +40,7 @@
                 <input style="border-radius: 0;" type="text" name="lastname" class="form-control" required id="lastname" placeholder="นามสกุล">       
             </div>
             <div class="">
-                <input class="form-control" type="email" name="email" required placeholder="ป้อนอีเมลอีครั้ง" style="width: 100%; margin-top: 15px;">
+                <input class="form-control" type="email" name="email" required placeholder="อีเมล" style="width: 100%; margin-top: 15px;">
             </div>
             <div style="">
                 <input class="form-control" type="password" name="password" required placeholder="รหัสผ่านใหม่" style="width: 100%; margin-top: 15px; margin-bottom: 15px;">
