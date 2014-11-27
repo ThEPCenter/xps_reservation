@@ -44,6 +44,7 @@ class Login_model extends CI_Model {
                 'recent_login' => $row->recent_login,
                 'last_login' => $row->last_login,
                 'level' => $row->level,
+                'active' => $row->active,
                 'validated' => true
             );
 

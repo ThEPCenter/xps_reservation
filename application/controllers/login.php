@@ -35,15 +35,31 @@ class Login extends CI_Controller {
         // Now we verify the result
         if (!$result) {
             // If user did not validate, then show them login page again
-            // $msg = $this->login_model->error_msg;
-            // $this->index($msg);
             redirect('login');
         } else {
             // If user did validate, 
             // Send them to members area
-            // redirect(base_url() . 'index.php/login/home', 'location');
-            redirect('home');
+            if ($this->session->userdata('active') == 1):
+                redirect('home');
+            else:
+                $email = urlencode($this->session->userdata('email'));
+                // Logout
+                $this->session->sess_destroy();
+                redirect("login/not_confirm/$email");
+            endif;
         }
+    }
+
+    public function not_confirm($email) {
+        if (!empty($email)):
+            $data['email'] = $email;
+            $data['title'] = "ยังไม่ได้ยืนยันอีเมล";
+            $this->load->view('templates/header', $data);
+            $this->load->view('not_confirm_view', $data);
+            $this->load->view('templates/footer');
+        else:
+            redirect('login');
+        endif;
     }
 
 }

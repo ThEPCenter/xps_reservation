@@ -34,11 +34,8 @@ class Register extends CI_Controller {
         if (!empty($email)):
             $this->register_model->add_new_user();
             $this->send_confirm_email($email);
-            $data['title'] = "ขอบคุณที่สมัครใช้ใช้บริการ";
-            $data['text'] = "<p>ระบบได้ส่งลิงค์ยืนยันการสมัครไปยังอีเมล: $email <br/> <strong>กรุณากดยืนยันลิงค์ดังกล่าวก่อน อีเมลของท่านจึงจะสามารถเข้าใช้งานได้</strong></p>";
-            $this->load->view('templates/header', $data);
-            $this->load->view('send_view');
-            $this->load->view('templates/footer');
+            $email = urlencode($email);
+            redirect("register/send_email/$email");
         else:
             redirect('login');
         endif;
@@ -61,6 +58,19 @@ class Register extends CI_Controller {
                 redirect('login');
             }
         }
+    }
+
+    public function send_email($email) {
+        if (!empty($email)):
+            $data['title'] = "ขอบคุณที่สมัครใช้ใช้บริการ";
+            $email = urldecode($email);
+            $data['text'] = "<p>ระบบได้ส่งลิงค์ยืนยันการสมัครไปยังอีเมล: $email <br/> <strong>กรุณากดยืนยันลิงค์ดังกล่าวก่อน อีเมลของท่านจึงจะสามารถเข้าใช้งานได้</strong></p>";
+            $this->load->view('templates/header', $data);
+            $this->load->view('send_view');
+            $this->load->view('templates/footer');
+        else:
+            redirect('login');
+        endif;
     }
 
     public function confirm_email($confirm_code) {

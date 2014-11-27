@@ -39,11 +39,14 @@
             <div class="form-group">                              
                 <input style="border-radius: 0;" type="text" name="lastname" class="form-control" required id="lastname" placeholder="นามสกุล">       
             </div>
-            <div class="">
+            <div>
                 <input class="form-control" type="email" name="email" required placeholder="อีเมล" style="width: 100%; margin-top: 15px;">
             </div>
-            <div style="">
-                <input class="form-control" type="password" name="password" required placeholder="รหัสผ่านใหม่" style="width: 100%; margin-top: 15px; margin-bottom: 15px;">
+            <div>
+                <input class="form-control" type="password" name="password" required placeholder="รหัสผ่านใหม่" style="width: 100%; margin-top: 15px;">
+            </div>
+            <div>
+                <input class="form-control" type="text" name="phone" required placeholder="โทรศัพท์" style="width: 100%; margin-top: 15px; margin-bottom: 15px;">            
             </div>
             <button type="submit" class="btn btn-default btn-lg">สมัครใช้งาน</button>
         </div>
