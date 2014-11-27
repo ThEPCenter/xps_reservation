@@ -15,7 +15,7 @@ class Login_model extends CI_Model {
         $this->db->where('email', $email);
         $this->db->where('password', sha1($password));
         // Run the query
-        $query = $this->db->get('tb_xps_user');
+        $query = $this->db->get('xps_user');
 
         // Let's check if there are any results        
         if ($query->num_rows == 1) {
@@ -26,14 +26,14 @@ class Login_model extends CI_Model {
                 'last_login' => $row->recent_login
             );
             $where = "user_id = $row->user_id";
-            $str = $this->db->update_string('tb_xps_user', $data_update, $where);
+            $str = $this->db->update_string('xps_user', $data_update, $where);
             $this->db->query($str);
 
             // If there is a user, then create session data
             $this->db->where('email', $email);
             $this->db->where('password', sha1($password));
 
-            $query = $this->db->get('tb_xps_user');
+            $query = $this->db->get('xps_user');
             $row = $query->row();
             $data = array(
                 'user_id' => $row->user_id,

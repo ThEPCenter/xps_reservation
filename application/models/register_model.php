@@ -15,7 +15,7 @@ class Register_model extends CI_Model {
         $firstname = $this->security->xss_clean($this->input->post('firstname'));
         $lastname = $this->security->xss_clean($this->input->post('lastname'));
         $phone = $this->security->xss_clean($this->input->post('phone'));
-        $position = $this->security->xss_clean($this->input->post('position'));
+        $position_id = $this->security->xss_clean($this->input->post('position_id'));
         $institute = $this->security->xss_clean($this->input->post('institute'));
         $level = 1;
         $active = 0;
@@ -28,42 +28,56 @@ class Register_model extends CI_Model {
             'firstname' => $firstname,
             'lastname' => $lastname,
             'phone' => $phone,
-            'position' => $position,
+            'position_id' => $position_id,
             'institute' => $institute,
             'level' => $level,
             'active' => $active,
             'created' => $created
         );
-        $this->db->insert('tb_xps_user', $data);
+        $this->db->insert('xps_user', $data);
     }
 
     public function insert_confirm_code($confirm_code, $email) {
+        $this->db->where('email', $email);
+        $query = $this->db->get('xps_user');
+        foreach ($query->result() as $row) {
+            $user_id = $row->user_id;
+        }
         $data = array(
-            'email' => $email,
             'confirm_code' => $confirm_code,
+            'user_id' => $user_id,
             'created' => date("Y-m-d H:i:s")
         );
-        $this->db->insert('tb_xps_confirm', $data);
+        $this->db->insert('xps_user_confirm', $data);
     }
 
     public function check_confirm_email($confirm_code) {
         $this->db->where('confirm_code', $confirm_code);
-        $query = $this->db->get('tb_xps_confirm');
+        $query = $this->db->get('xps_user_confirm');
 
         if ($query->num_rows() == 1):
-            foreach ($query->result() as $row) {
-                $email = $row->email;
-            }
+            foreach ($query->result() as $row) :
+                $user_id = $row->user_id;
 
-            $updated = date("Y-m-d H:i:s");
+                $this->db->where('user_id', $user_id);
+                $qu = $this->db->get('xps_user');
+                foreach ($qu->result() as $r):
+                    $email = $r->email;
+                endforeach;
+            endforeach;
+
             $data = array(
                 'active' => 1,
-                'updated' => $updated
+                'updated' => date("Y-m-d H:i:s")
             );
-            $this->db->where('email', $email);
-            $this->db->update('tb_xps_user', $data);
+            $this->db->where('user_id', $user_id);
+            $this->db->update('xps_user', $data);
 
-            return $row->email;
+            $data_confirm = array('confirmed' => date("Y-m-d H:i:s"));
+            $this->db->where('confirm_code', $confirm_code);
+            $this->db->update('xps_user_confirm', $data_confirm);
+
+            return $email;
 
         else:
 
@@ -76,12 +90,11 @@ class Register_model extends CI_Model {
             'recent_login' => date("Y-m-d H:i:s"),
             'last_login' => date("Y-m-d H:i:s")
         );
+        $this->db->where('email', $email);
+        $this->db->update('xps_user', $data_update);
 
         $this->db->where('email', $email);
-        $this->db->update('tb_xps_user', $data_update);
-
-        $this->db->where('email', $email);
-        $query = $this->db->get('tb_xps_user');
+        $query = $this->db->get('xps_user');
         $row = $query->row();
         $data = array(
             'user_id' => $row->user_id,
@@ -94,7 +107,6 @@ class Register_model extends CI_Model {
             'level' => $row->level,
             'validated' => TRUE
         );
-
         $this->session->set_userdata($data);
         return true;
     }

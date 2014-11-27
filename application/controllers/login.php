@@ -52,7 +52,7 @@ class Login extends CI_Controller {
 
     public function not_confirm($email) {
         if (!empty($email)):
-            $data['email'] = $email;
+            $data['email'] = urldecode($email);
             $data['title'] = "ยังไม่ได้ยืนยันอีเมล";
             $this->load->view('templates/header', $data);
             $this->load->view('not_confirm_view', $data);

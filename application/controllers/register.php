@@ -47,7 +47,7 @@ class Register extends CI_Controller {
 
             $this->register_model->insert_confirm_code($confirm_code, $email);
 
-            $this->email->from('noreply@thep-center.org', 'XPS_registration');
+            $this->email->from('noreply@thep-center.org', 'XPS registration');
             $this->email->to($email);
             $this->email->subject('XPS การยืนยันอีเมลที่สมัครใช้บริการ');
             $message = "กรุณาคลิ้กยืนยันอีเมล >> http://cnxlove.com/central_instrument/index.php/register/confirm_email/$confirm_code";
