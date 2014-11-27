@@ -40,8 +40,9 @@
                 <input style="border-radius: 0;" type="text" name="lastname" class="form-control" required id="lastname" placeholder="นามสกุล">       
             </div>
             <div>
-                <input class="form-control" type="email" name="email" required placeholder="อีเมล" style="width: 100%; margin-top: 15px;">
+                <input class="form-control register_email" type="email" name="email" required placeholder="อีเมล" style="width: 100%; margin-top: 15px;">
             </div>
+            <div><button type="button" id="check_email">Check email</button> <span id="check_result"></span></div>
             <div>
                 <input class="form-control" type="password" name="password" required placeholder="รหัสผ่านใหม่" style="width: 100%; margin-top: 15px;">
             </div>

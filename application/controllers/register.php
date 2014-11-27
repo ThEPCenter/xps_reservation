@@ -88,5 +88,10 @@ class Register extends CI_Controller {
             }
         endif;
     }
+    
+    public function check_email() {
+        $data['msg'] = $this->register_model->get_email();
+        $this->load->view('check_email_view', $data);
+    }
 
 }
