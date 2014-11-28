@@ -15,12 +15,8 @@ class Register_model extends CI_Model {
         $firstname = $this->security->xss_clean($this->input->post('firstname'));
         $lastname = $this->security->xss_clean($this->input->post('lastname'));
         $phone = $this->security->xss_clean($this->input->post('phone'));
-        $position_id = $this->security->xss_clean($this->input->post('position_id'));
-        $institute = $this->security->xss_clean($this->input->post('institute'));
         $level = 1;
         $active = 0;
-        $created = date("Y-m-d H:i:s");
-
         $data = array(
             'username' => $username,
             'email' => $email,
@@ -28,13 +24,26 @@ class Register_model extends CI_Model {
             'firstname' => $firstname,
             'lastname' => $lastname,
             'phone' => $phone,
-            'position_id' => $position_id,
-            'institute' => $institute,
             'level' => $level,
             'active' => $active,
-            'created' => $created
+            'created' => date("Y-m-d H:i:s")
         );
         $this->db->insert('xps_user', $data);
+        $user_id = $this->db->insert_id();
+
+        $position = $this->security->xss_clean($this->input->post('position'));
+        $detail = $this->security->xss_clean($this->input->post('detail'));
+        $supervisor = $this->security->xss_clean($this->input->post('supervisor'));
+        $institute = $this->security->xss_clean($this->input->post('institute'));
+        $data_position = array(
+            'position' => $position,
+            'detail' => $detail,
+            'supervisor' => $supervisor,
+            'institute' => $institute,
+            'user_id' => $user_id,
+            'created' => date("Y-m-d H:i:s")
+        );
+        $this->db->insert('xps_user_position', $data_position);        
     }
 
     public function insert_confirm_code($confirm_code, $email) {

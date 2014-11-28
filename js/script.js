@@ -1,4 +1,5 @@
 $(function () {
+
     $("#check_email").click(function () {
 
         $(document).ajaxStart(function () {
@@ -16,7 +17,7 @@ $(function () {
         });
 
     });
-    
+
     $(".register_email").focusout(function () {
 
         $(document).ajaxStart(function () {
