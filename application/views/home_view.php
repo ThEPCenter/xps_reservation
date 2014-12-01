@@ -36,44 +36,44 @@
         <script src="<?php echo base_url(); ?>fullcalendar/fullcalendar.min.js"></script>
         <script>
 
-                    $(document).ready(function () {
+            $(document).ready(function () {
 
-            $('#calendar').fullCalendar({
-            header: {
-            left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,basicWeek'
-            },
-                    defaultDate: '<?php echo date("Y-m-d"); ?>',
-                    editable: false,
-                    eventLimit: true, // allow "more" link when too many events
-                    events: [                    
-                    
-                    {
-                    "title": "จองแล้ว",
-                            "start": "2014-11-26",
-                            "color": "red",
-                            "className": "occupied"
-                    },
-                    {
-                    "title": "Maintenance",
-                            "start": "2014-11-27",
-                            "className": "occupied"
-                    },
-                    {
-                    "title": "ว่าง",
+                $('#calendar').fullCalendar({
+                header: {
+                left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek'
+                },
+                        defaultDate: '<?php echo date("Y-m-d"); ?>',
+                        editable: false,
+                        eventLimit: true, // allow "more" link when too many events
+                        events: [
+
+                        {
+                        "title": "จองแล้ว",
+                                "start": "2014-11-26",
+                                "color": "red",
+                                "className": "occupied"
+                        },
+                        {
+                        "title": "Maintenance",
+                                "start": "2014-11-27",
+                                "className": "occupied"
+                        },
+                        {
+                        "title": "ว่าง",
 <?php if ($this->session->userdata('level') != 10): ?>
-                    "url": "reservation/2014-11-28",
+                            "url": "<?php echo site_url(); ?>/reserve/reserved_date/2014-11-28",
 <?php endif; ?>
-                    "start": "2014-11-28",
-                            "color": "white",
-                            "textColor": "black",
-                            "className": "unoccupied"
-                    }                
+                        "start": "2014-11-28",
+                                "color": "white",
+                                "textColor": "black",
+                                "className": "unoccupied"
+                        }
 
 
-                ]
-            });
+                        ]
+                });
             });
 
         </script>
@@ -107,9 +107,12 @@
     </head>
     <body>
         <div class="container">
-            <header style="border: solid 1px silver; margin-bottom: 20px; margin-top: 5px; padding-left: 15px;">
-                <h1>XPS</h1>
-                <h3>Thailand Center of Excellence in Physics (ThEP)</h3>
+            <header>
+                <a href="<?php echo site_url(); ?>">
+                    <div class="page-header" style="margin-top: 5px;">
+                        <h1 style="margin-top: 5px;">XPS <small>Thailand Center of Excellence in Physics (ThEP)</small></h1>
+                    </div>
+                </a>
             </header>
 
             <div id="calendar"></div>

@@ -30,9 +30,10 @@
     </head>
     <body>
         <div class="container">
-            <header style="border: solid 1px silver; margin-bottom: 20px; margin-top: 10px; padding-left: 15px;">
+            <header>
                 <a href="<?php echo site_url(); ?>">
-                    <h1>XPS</h1>
-                    <h3>Thailand Center of Excellence in Physics (ThEP)</h3>
+                    <div class="page-header" style="margin-top: 5px;">
+                        <h1 style="margin-top: 5px;">XPS <small>Thailand Center of Excellence in Physics (ThEP)</small></h1>
+                    </div>
                 </a>
             </header>
