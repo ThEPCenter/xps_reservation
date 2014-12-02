@@ -32,13 +32,14 @@
 
         <div class="form-group" style="margin-top: 10px;">
             <div class="input-group" style="margin-right: 15px;">
-                <textarea class="form-control" name="sample_detail" rows="7" placeholder="รายละเอียด Sample" style="width: 493px;"></textarea>
+                <textarea class="form-control" name="detail" rows="7" placeholder="รายละเอียด Sample" style="width: 493px;"></textarea>
             </div>            
         </div>
 
         <br>
 
-        <button type="submit" class="btn btn-default btn-lg" style="margin-top: 10px;">ยืนยัน</button>
+        <button type="submit" class="btn btn-success btn-lg" style="margin-top: 10px;"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> ยืนยัน</button> &nbsp;
+        <button type="button" class="btn btn-danger btn-lg" style="margin-top: 10px;" onclick="window.history.back();"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> ยกเลิก</button>
 
     </form>
 </section>

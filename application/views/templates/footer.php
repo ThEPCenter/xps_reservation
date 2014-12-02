@@ -10,7 +10,7 @@
     else: echo '2014-' . date("Y");
     endif;
     ?> 
-    <a href="http://thep-center.org">thep-center.org</a>
+    <a target="_blank" href="http://thep-center.org">thep-center.org</a>
 </footer>
 
 </div> <!-- /.container -->

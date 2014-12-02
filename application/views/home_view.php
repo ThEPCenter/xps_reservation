@@ -39,43 +39,19 @@
             $(document).ready(function () {
 
                 $('#calendar').fullCalendar({
-                header: {
-                left: 'prev,next today',
+                    header: {
+                        left: 'prev,next today',
                         center: 'title',
                         right: 'month,basicWeek'
-                },
-                        defaultDate: '<?php echo date("Y-m-d"); ?>',
-                        editable: false,
-                        eventLimit: true, // allow "more" link when too many events
-                        events: [
-
-                        {
-                        "title": "จองแล้ว",
-                                "start": "2014-11-26",
-                                "color": "red",
-                                "className": "occupied"
-                        },
-                        {
-                        "title": "Maintenance",
-                                "start": "2014-11-27",
-                                "className": "occupied"
-                        },
-                        {
-                        "title": "ว่าง",
-<?php if ($this->session->userdata('level') != 10): ?>
-                            "url": "<?php echo site_url(); ?>/reserve/reserved_date/2014-11-28",
-<?php endif; ?>
-                        "start": "2014-11-28",
-                                "color": "white",
-                                "textColor": "black",
-                                "className": "unoccupied"
-                        }
-
-
-                        ]
+                    },
+                    defaultDate: '<?php echo date("Y-m-d"); ?>',
+                    editable: false,
+                    eventLimit: true, // allow "more" link when too many events
+                    events: [
+                        <?php echo $reserved_data . $free_date; ?>
+                    ]
                 });
             });
-
         </script>
         <style>
             #calendar {
@@ -105,6 +81,7 @@
             }
         </style>
     </head>
+    
     <body>
         <div class="container">
             <header>
