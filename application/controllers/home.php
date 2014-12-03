@@ -36,9 +36,9 @@ class Home extends CI_Controller {
         $all_text = '';
         foreach ($query->result() as $row):
             if ($row->user_id == $this->session->userdata('user_id')):
-                $all_text .= '{"title": "คุณ' . $this->reserved_status($row->status) . '","start": "' . $row->reserved_date . '", "url":"'.$this->url_edit($row->reserved_date).'","color":"green","className":"occupied"},';
+                $all_text .= '{"title":"คุณ' . $this->reserved_status($row->status) . '","start": "' . $row->reserved_date . '", "url":"' . $this->url_detail($row->reserved_date) . '","color":"green","className":"occupied"},';
             else:
-                $all_text .= '{"title": "' . $this->reserved_status($row->status) . '","start": "' . $row->reserved_date . '","color": "' . $this->status_color($row->status) . '","className":"occupied"},';
+                $all_text .= '{"title":"' . $this->reserved_status($row->status) . '","start":"' . $row->reserved_date . '","color":"' . $this->status_color($row->status) . '","className":"occupied"},';
             endif;
         endforeach;
         $data['reserved_data'] = $all_text;
@@ -110,8 +110,14 @@ class Home extends CI_Controller {
             return site_url() . '/reserve/reserved_date/' . $date_reserve;
         endif;
     }
-    
-    public function url_edit($date_reserve){
+
+    public function url_detail($date_reserve) {
+        if ($this->session->userdata('level') != 10):
+            return site_url() . '/reserve/reserved_detail/' . $date_reserve;
+        endif;
+    }
+
+    public function url_edit($date_reserve) {
         if ($this->session->userdata('level') != 10):
             return site_url() . '/reserve/edit_reserved/' . $date_reserve;
         endif;

@@ -122,8 +122,7 @@ class Register_model extends CI_Model {
 
     public function get_email() {
         $register_email = $this->security->xss_clean($this->input->get('register_email'));
-        $this->db->where('email', $register_email);
-        ;
+        $this->db->where('email', $register_email);        
         $query = $this->db->get('xps_user');
         if ($query->num_rows == 1):
             return '<span style="color: red" class="glyphicon glyphicon-remove"></span> <b style="color: red">อีเมลนี้ซ้ำ</b>';

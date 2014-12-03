@@ -39,7 +39,7 @@
         <br>
 
         <button type="submit" class="btn btn-success btn-lg" style="margin-top: 10px;"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> ยืนยัน</button> &nbsp;
-        <button type="button" class="btn btn-danger btn-lg" style="margin-top: 10px;" onclick="window.history.back();"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> ยกเลิก</button>
+        <button type="button" class="btn btn-default btn-lg" style="margin-top: 10px;" onclick="window.history.back();"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> ยกเลิก</button>
 
     </form>
 </section>

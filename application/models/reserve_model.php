@@ -9,19 +9,28 @@ class Reserve_model extends CI_Model {
     }
 
     public function add_reserved() {
-        $sample_number = $this->input->post('sample_number');
-        $detail = $this->security->xss_clean($this->input->post('sample_detail'));
         $reserved_date = $this->input->post('reserved_date');
-        $user_id = $this->input->post('user_id');
-        $data = array(
-            'status' => 'occupied',
-            'sample_number' => $sample_number,
-            'detail' => $detail,
-            'reserved_date' => $reserved_date,
-            'created' => date("Y-m-d H:i:s"),
-            'user_id' => $user_id
-        );
-        $this->db->insert('xps_reservation', $data);
+
+        $q_check = $this->get_reserved_data($reserved_date);
+        if ($q_check->num_rows() != 0) :
+            return FALSE;
+        else:
+            $sample_number = $this->input->post('sample_number');
+            $detail = $this->security->xss_clean($this->input->post('detail'));
+
+            $user_id = $this->input->post('user_id');
+            $data = array(
+                'status' => 'occupied',
+                'sample_number' => $sample_number,
+                'detail' => $detail,
+                'reserved_date' => $reserved_date,
+                'created' => date("Y-m-d H:i:s"),
+                'user_id' => $user_id
+            );
+            $this->db->insert('xps_reservation', $data);
+
+            return $reserved_date;
+        endif;
     }
 
     public function get_reserved_data($reserve_date = '') {
@@ -32,9 +41,27 @@ class Reserve_model extends CI_Model {
             return $this->db->get('xps_reservation');
         endif;
     }
-    
+
     public function update_reserved_data() {
-        
+        $reserved_id = $this->input->post('reserved_id');
+        $sample_number = $this->input->post('sample_number');
+        $detail = $this->security->xss_clean($this->input->post('detail'));
+        $reserved_date = $this->input->post('reserved_date');
+        $data = array(
+            'status' => 'occupied',
+            'sample_number' => $sample_number,
+            'detail' => $detail,
+            'reserved_date' => $reserved_date,
+            'updated' => date("Y-m-d H:i:s")
+        );
+        $this->db->where('reserved_id', $reserved_id);
+        $this->db->update('xps_reservation', $data);
+        return $reserved_date;
+    }
+
+    public function delete_reserved_data() {
+        $reserved_id = $this->input->post('reserved_id');
+        $this->db->delete('xps_reservation', array('reserved_id' => $reserved_id));
     }
 
 }
