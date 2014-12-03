@@ -23,6 +23,10 @@ class Home extends CI_Controller {
             redirect('login');
         }
 
+        if ($this->session->userdata('level') == 10) {
+            redirect('admin');
+        }
+
         $this->load->model('login_model');
         $this->load->model('reserve_model');
     }
@@ -36,7 +40,11 @@ class Home extends CI_Controller {
         $all_text = '';
         foreach ($query->result() as $row):
             if ($row->user_id == $this->session->userdata('user_id')):
-                $all_text .= '{"title":"คุณ' . $this->reserved_status($row->status) . '","start": "' . $row->reserved_date . '", "url":"' . $this->url_detail($row->reserved_date) . '","color":"green","className":"occupied"},';
+                if ($this->session->userdata('level') == 10):
+                    $all_text .= '{"title":"' . $this->reserved_status($row->status) . '","start": "' . $row->reserved_date . '", "url":"' . $this->url_detail($row->reserved_date) . '","color":"' . $this->status_color($row->status) . '","className":"occupied"},';
+                else:
+                    $all_text .= '{"title":"คุณ' . $this->reserved_status($row->status) . '","start": "' . $row->reserved_date . '", "url":"' . $this->url_detail($row->reserved_date) . '","color":"green","className":"occupied"},';
+                endif;
             else:
                 $all_text .= '{"title":"' . $this->reserved_status($row->status) . '","start":"' . $row->reserved_date . '","color":"' . $this->status_color($row->status) . '","className":"occupied"},';
             endif;

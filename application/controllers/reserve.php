@@ -22,6 +22,10 @@ class Reserve extends CI_Controller {
         if (!($this->session->userdata('validated'))) {
             redirect('login');
         }
+        
+        if ($this->session->userdata('level') == 10) {
+            redirect('admin');
+        }
 
         // ========= Commom Models ========= //
         $this->load->model('reserve_model');
@@ -80,30 +84,35 @@ class Reserve extends CI_Controller {
             $sample_detail = $r_re->detail;
         endforeach;
 
-
+        $subject_text = "XPS reservation. " . date("Y-m-d H:i:s");
+        $adminemail = $this->admin_email();
+        
+        $config['wordwrap'] = FALSE;
+        $this->email->initialize($config);
+        
         $this->email->from('xps_noreply@thep-center.org', 'XPS ThEP');
-        $this->email->to($this->admin_email());
-        $this->email->subject('XPS reservation');
+        $this->email->to($adminemail);
+        $this->email->subject($subject_text);
 
-        $message = "วันที่จอง: " . date("l, F j, Y", strtotime($reserved_date)) . "<br>";
-        $message .= "จำนวน Sample: " . $sample_number . "<br>";
-        $message .= "รายละเอียด Sample: " . $sample_detail . "<br>";
-        $message .= "ชื่อผู้จอง: " . $firstname . ' ' . $lastname . "<br>";
+        $message = "วันที่จอง: " . date("l, F j, Y", strtotime($reserved_date)) . "\r\n";
+        $message .= "จำนวน Sample: " . $sample_number . "\r\n";
+        $message .= "รายละเอียด Sample: " . $sample_detail . "\r\n\r\n";
+        $message .= "ชื่อผู้จอง: " . $firstname . ' ' . $lastname . "\r\n";
         if ($position == 'other'):
             $position = $detail;
         endif;
-        $message .= "Email: " . $email . "<br>";
-        $message .= "โทรศัพท์: " . $phone . "<br>";
-        $message .= "ตำแหน่ง / อาชีพ: " . $position . "<br>";
+        $message .= "Email: " . $email . "\r\n";
+        $message .= "โทรศัพท์: " . $phone . "\r\n";
+        $message .= "ตำแหน่ง / อาชีพ: " . $position . "\r\n";
         if (!empty($supervisor)):
-            $message .= "อาจารย์ที่ปรึกษา (supervisor): " . $supervisor . "<br>";
+            $message .= "อาจารย์ที่ปรึกษา (supervisor): " . $supervisor . "\r\n";
         endif;
-        $message .= "สถาบัน / มหาวิทยาลัย / หน่วยงาน: " . $institute;
+        $message .= "สถาบัน/สถานศึกษา/หน่วยงาน: " . $institute;
 
         $this->email->message($message);
 
         if (!$this->email->send()) {
-            redirect('login');
+            redirect('home');
         }
     }
 
@@ -111,9 +120,16 @@ class Reserve extends CI_Controller {
         $this->db->where('level', 10);
         $query = $this->db->get('xps_user');
         $email_list = array();
+        $nums = $query->num_rows();
+        for($i=1;$i<$nums;$i++):
+            $email_list[$i] = '';
+        endfor;
+        $i = 0;
         foreach ($query->result() as $row) {
-            $email_list = $row->email;
+            $email_list[$i] = $row->email;
+            $i++;
         }
+        return $email_list;
     }
 
     public function reserved_detail($reserve_date) {
