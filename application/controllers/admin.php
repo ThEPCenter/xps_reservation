@@ -29,7 +29,6 @@ class Admin extends CI_Controller {
         // ========= Commom Models ========= //
         $this->load->model('admin_model');
         $this->load->model('login_model');
-        $this->load->model('reserve_model');
     }
 
     public function index() {
@@ -37,15 +36,15 @@ class Admin extends CI_Controller {
     }
 
     public function calendar() {
-        $query = $this->reserve_model->get_reserved_data();
+        $query = $this->admin_model->get_reserved_date();
         $all_text = '';
         foreach ($query->result() as $row):
-            $all_text .= '{"title":"' . $this->reserved_status($row->status) . '","start":"' . $row->reserved_date . '","url":"' . $this->url_detail($row->reserved_date) . '","color":"' . $this->status_color($row->status) . '","className":"occupied"},';
+            $all_text .= '{"title":"' . $this->reserved_status($row->status) . '","start":"' . $row->reserved_date . '","url":"' . $this->url_detail($row->reserved_date, $row->reserved_id) . '","color":"' . $this->status_color($row->status) . '","className":"occupied"},';
 
         endforeach;
         $data['reserved_data'] = $all_text;
 
-        $date_nums = 61;
+        $date_nums = 90;
         $free_text = '';
         for ($i = 1; $i < $date_nums; $i++):
             $date_reserve = date("Y-m-d", strtotime("+$i days"));
@@ -111,16 +110,16 @@ class Admin extends CI_Controller {
         return site_url() . '/admin/reserved_date/' . $date_reserve;
     }
 
-    public function url_detail($date_reserve) {
-        return site_url() . '/admin/reserved_detail/' . $date_reserve;
+    public function url_detail($date_reserve, $reserved_id) {
+        return site_url() . '/admin/reserved_detail/' . $date_reserve . '/' . $reserved_id;
     }
 
     public function url_edit($date_reserve) {
         return site_url() . '/admin/edit_reserved/' . $date_reserve;
     }
 
-    public function reserved_detail($reserve_date) {
-        $query = $this->reserve_model->get_reserved_data($reserve_date);
+    public function reserved_detail($reserve_date, $reserved_id) {
+        $query = $this->admin_model->get_reserved_data($reserve_date, $reserved_id);
         if ($query->num_rows() == 0):
             redirect('admin');
         endif;
@@ -139,11 +138,69 @@ class Admin extends CI_Controller {
             $data['lastname'] = $r_user->lastname;
         endforeach;
 
-
         $data['reserve_date'] = $reserve_date;
         $data['title'] = 'ข้อมูลการจอง';
         $this->load->view('templates/header', $data);
         $this->load->view('admin/reserved_detail_view');
+        $this->load->view('templates/footer');
+    }
+
+    public function reserved_date($date_reserve) {
+        $data['date_stamp'] = strtotime($date_reserve);
+        $data['user_id'] = $this->session->userdata('user_id');
+        $data['firstname'] = $this->session->userdata('firstname');
+        $data['lastname'] = $this->session->userdata('lastname');
+        $data['title'] = 'จองคิว';
+        $this->load->view('templates/header', $data);
+        $this->load->view('admin/reserve_view');
+        $this->load->view('templates/footer');
+    }
+
+    public function edit_reserved_process() {
+        $reserved_id = $this->input->post('reserved_id');
+
+        if (empty($reserved_id)) {
+            redirect('admin/calendar');
+        }
+        $reserved_date = $this->admin_model->update_reserved_data();
+        $location = site_url() . '/admin/reserved_detail/' . $reserved_date . '/' . $reserved_id;
+        redirect($location);
+    }
+
+    public function reserve_process() {
+        $this->admin_model->add_reserved();
+        $location = site_url() . '/admin/calendar';
+        redirect($location);
+    }
+
+    public function delete_reserved_process() {
+        $this->admin_model->delete_reserved_data();
+        $location = site_url() . '/home/calendar';
+        redirect($location);
+    }
+
+    public function user_detail($user_id) {
+        $q_user = $this->admin_model->get_user_detail($user_id);
+        foreach ($q_user as $user):
+            $data['firstname'] = $user->firstname;
+            $data['lastname'] = $user->lastname;
+            $data['email'] = $user->email;
+            $data['phone'] = $user->phone;
+            $data['recent_login'] = $user->recent_login;
+        endforeach;
+        $q_position = $this->admin_model->get_user_position($user_id);
+        foreach ($q_position as $position) :
+            $data['position'] = $position->position;
+            $data['detail'] = $position->detail;
+            $data['supervisor'] = $position->supervisor;
+            $data['institute'] = $position->institute;
+        endforeach;
+        $data['q_reservation'] = $this->admin_model->get_user_reservation($user_id);
+
+        $data['user_id'] = $user_id;
+        $data['title'] = 'รายละเอียด user';
+        $this->load->view('templates/header', $data);
+        $this->load->view('admin/user_detail_view');
         $this->load->view('templates/footer');
     }
 

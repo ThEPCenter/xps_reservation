@@ -36,13 +36,13 @@
                     header: {
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'month,basicWeek'
+                        right: 'month'
                     },
                     defaultDate: '<?php echo date("Y-m-d"); ?>',
                     editable: false,
                     eventLimit: true, // allow "more" link when too many events
                     events: [
-                        <?php echo $reserved_data . $free_date; ?>
+<?php echo $reserved_data . $free_date; ?>
                     ]
                 });
 
@@ -88,6 +88,14 @@
                     </div>
                 </a>
             </header>
+
+            <?php if ($this->session->userdata('email')): ?>                
+                <section style="text-align: right; margin-bottom: 15px;">
+                    <strong>สวัสดี คุณ <?php echo $this->session->userdata('firstname') . ' ' . $this->session->userdata('lastname'); ?></strong> 
+                    <a title="ข้อมูลส่วนตัว" href="#"><button type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> ข้อมูลส่วนตัว</button></a>
+                    <a title="ออกจากระบบ" href="<?php echo site_url(); ?>/logout"><button type="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</button></a>
+                </section>
+            <?php endif; ?>
 
             <div id="calendar"></div>
 

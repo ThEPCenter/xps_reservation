@@ -9,7 +9,7 @@
 
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> แก้ไข</button> &nbsp;
-    <a href="<?php echo site_url() . '/home/calendar'; ?>"><button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> ย้อนกลับ</button></a> 
+    <a href="<?php echo site_url() . '/home/calendar'; ?>"><button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> ไปปฏิทิน </button></a> 
     &nbsp;
     <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal2"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> ลบการจองนี้</button>
 
