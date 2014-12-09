@@ -27,7 +27,6 @@
         echo link_tag($link);
         ?>
         <script src="<?php echo base_url(); ?>fullcalendar/lib/moment.min.js"></script>
-        <?php /** <script src="<?php echo base_url(); ?>fullcalendar/lib/jquery.min.js"></script> */ ?>
         <script src="<?php echo base_url(); ?>fullcalendar/fullcalendar.min.js"></script>
         <script>
             $(document).ready(function () {
@@ -91,8 +90,9 @@
 
             <?php if ($this->session->userdata('email')): ?>                
                 <section style="text-align: right; margin-bottom: 15px;">
-                    <strong>สวัสดี คุณ <?php echo $this->session->userdata('firstname') . ' ' . $this->session->userdata('lastname'); ?></strong> 
-                    <a title="ข้อมูลส่วนตัว" href="#"><button type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> ข้อมูลส่วนตัว</button></a>
+                    <strong>สวัสดี คุณ <?php echo $this->session->userdata('firstname') . ' ' . $this->session->userdata('lastname'); ?></strong>
+                    <?php $user_url = site_url() . '/user/user_detail/' . $this->session->userdata('user_id'); ?>
+                    <a title="ข้อมูลส่วนตัว" href="<?php echo $user_url; ?>"><button type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> ข้อมูลส่วนตัว</button></a>
                     <a title="ออกจากระบบ" href="<?php echo site_url(); ?>/logout"><button type="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</button></a>
                 </section>
             <?php endif; ?>

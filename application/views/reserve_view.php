@@ -35,7 +35,6 @@
                 <textarea class="form-control" name="detail" rows="7" placeholder="รายละเอียด Sample" style="width: 493px;"></textarea>
             </div>            
         </div>
-
         <br>
 
         <button type="submit" class="btn btn-success btn-lg" style="margin-top: 10px;"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> ยืนยัน</button> &nbsp;

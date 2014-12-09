@@ -85,4 +85,35 @@ class Admin_model extends CI_Model {
         return $this->db->get('xps_reservation');
     }
 
+    public function update_user_detail() {
+        $user_id = $this->input->post('user_id');
+        $firstname = $this->security->xss_clean($this->input->post('firstname'));
+        $lastname = $this->security->xss_clean($this->input->post('lastname'));
+        $phone = $this->input->post('phone');
+
+        $position = $this->input->post('position');
+        $detail = $this->security->xss_clean($this->input->post('detail'));
+        $supervisor = $this->security->xss_clean($this->input->post('supervisor'));
+        $institute = $this->security->xss_clean($this->input->post('institute'));
+
+        $data_user = array(
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            'phone' => $phone,
+            'updated' => date("Y-m-d H:i:s")
+        );
+        $this->db->where('user_id', $user_id);
+        $this->db->update('xps_user', $data_user);
+
+        $data_position = array(
+            'position' => $position,
+            'detail' => $detail,
+            'supervisor' => $supervisor,
+            'institute' => $institute,
+            'updated' => date("Y-m-d H:i:s")
+        );
+        $this->db->where('user_id', $user_id);
+        $this->db->update('xps_user_position', $data_position);
+    }
+
 }

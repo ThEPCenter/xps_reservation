@@ -2,16 +2,19 @@
 <section>
     <h2>รายละเอียดการจองคิว</h2>
     <h3 style="margin-bottom: 15px;"><?php echo date("l, F j, Y", strtotime($reserved_date)); ?></h3>
-
-    <p>ชื่อผู้จอง: <?php echo $firstname; ?> <?php echo $lastname; ?></p>
-    <p>จำนวน Sample: <?php echo $sample_number; ?></p>
-    <p>รายละเอียด Sample: <?php echo $detail; ?></p>
+    <p><span class="detail-title">ชื่อผู้จอง:</span> <?php echo $firstname; ?> <?php echo $lastname; ?></p>
+    <p><span class="detail-title">จำนวน Sample:</span> <?php echo $sample_number; ?></p>
+    <p><span class="detail-title">รายละเอียด Sample:</span> <?php echo $detail; ?></p>
+    <p><span class="detail-title">จองเมื่อ:</span> <?php echo $created; ?></p>
+    <?php if (!empty($updated)): ?>
+        <p><span class="detail-title">ปรับปรุงข้อมูลเมื่อ:</span> <?php echo $updated; ?></p>
+    <?php endif; ?>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> แก้ไข</button> &nbsp;
-    <a href="<?php echo site_url() . '/home/calendar'; ?>"><button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> ไปปฏิทิน </button></a> 
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> แก้ไข</button> &nbsp;
+    <a href="<?php echo site_url() . '/home/calendar'; ?>"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> ไปปฏิทิน </button></a> 
     &nbsp;
-    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal2"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> ลบการจองนี้</button>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> ลบการจองนี้</button>
 
 
     <!-- Modal 1 -->
@@ -21,7 +24,7 @@
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">แก้ไขการจองคิว <?php echo date("l, F j, Y", strtotime($reserved_date)); ?></h4>
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> แก้ไขการจองคิว <?php echo date("l, F j, Y", strtotime($reserved_date)); ?></h4>
                 </div>
 
                 <form role="form" class="form-inline" method="post" action="<?php echo site_url(); ?>/reserve/edit_reserved_process">
@@ -74,9 +77,9 @@
     <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" style="background-color: #d9534f; color: white;">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title" id="myModalLabel">ลบการจอง!</h3>
+                    <h3 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> ลบการจอง!</h3>
                 </div>
                 <div class="modal-body">
                     คุณแน่ใจหรือว่าจะลบการจอง

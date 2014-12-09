@@ -39,7 +39,7 @@
                     <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> แก้ไขข้อมูลส่วนตัว</h4>
                 </div>
                 <div class="modal-body">
-                    <form role="form" class="form-inline" method="post" action="<?php echo site_url(); ?>/admin/edit_user_detail">
+                    <form role="form" class="form-inline" method="post" action="<?php echo site_url(); ?>/user/edit_user_detail">
                         <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
                         <div class="input-group" style="margin-right: 15px;">
                             <div class="form-group">
@@ -107,19 +107,19 @@
     <table class="table table-bordered">
         <tr>
             <th>วันที่จอง</th>
-            <th><?php if($level == 10): echo 'status'; else: echo 'จำนวน Sample'; endif; ?></th>
-            <th>รายละเอียด<?php if($level != 10): echo ' Sample'; endif; ?></th>
+            <th>จำนวน Sample</th>
+            <th>รายละเอียด Sample</th>
             <th>จองเมื่อ</th>
             <th>ปรับปรุงข้อมูลเมื่อ</th>
         </tr>
         <?php foreach ($q_reservation->result() as $reservation): ?>
             <tr>
                 <td>
-                    <a title="ดูรายระเอียด" href="<?php echo site_url(); ?>/admin/reserved_detail/<?php echo $reservation->reserved_date . '/' . $reservation->reserved_id; ?>">
+                    <a title="ดูรายระเอียด" href="<?php echo site_url(); ?>/reserve/reserved_detail/<?php echo $reservation->reserved_date; ?>">
                         <?php echo $reservation->reserved_date; ?>
                     </a>
                 </td>
-                <td style="text-align: center;"><?php if($level == 10): echo $reservation->status; else: echo $reservation->sample_number; endif; ?></td>
+                <td style="text-align: center;"><?php echo $reservation->sample_number; ?></td>
                 <td><?php echo $reservation->detail; ?></td>
                 <td style="text-align: center;"><?php echo $reservation->created; ?></td>
                 <td style="text-align: center;"><?php echo $reservation->updated; ?></td>

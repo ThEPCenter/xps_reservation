@@ -143,6 +143,8 @@ class Reserve extends CI_Controller {
             $data['reserved_date'] = $row->reserved_date;
             $data['sample_number'] = $row->sample_number;
             $data['detail'] = $row->detail;
+            $data['created'] = $row->created;
+            $data['updated'] = $row->updated;
         endforeach;
         if ($data['user_id'] != $this->session->userdata('user_id')):
             redirect('home/calendar');

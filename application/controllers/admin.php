@@ -130,6 +130,8 @@ class Admin extends CI_Controller {
             $data['reserved_date'] = $row->reserved_date;
             $data['sample_number'] = $row->sample_number;
             $data['detail'] = $row->detail;
+            $data['created'] = $row->created;
+            $data['updated'] = $row->updated;
         endforeach;
         $this->db->where('user_id', $data['user_id']);
         $q_user = $this->db->get('xps_user');
@@ -186,11 +188,13 @@ class Admin extends CI_Controller {
             $data['lastname'] = $user->lastname;
             $data['email'] = $user->email;
             $data['phone'] = $user->phone;
+            $data['level'] = $user->level;
             $data['recent_login'] = $user->recent_login;
         endforeach;
         $q_position = $this->admin_model->get_user_position($user_id);
         foreach ($q_position as $position) :
             $data['position'] = $position->position;
+            $data['position_thai'] = $this->position_in_thai($data['position']);
             $data['detail'] = $position->detail;
             $data['supervisor'] = $position->supervisor;
             $data['institute'] = $position->institute;
@@ -202,6 +206,28 @@ class Admin extends CI_Controller {
         $this->load->view('templates/header', $data);
         $this->load->view('admin/user_detail_view');
         $this->load->view('templates/footer');
+    }
+
+    public function position_in_thai($position) {
+        switch ($position):
+            case 'researcher':
+                return 'นักวิจัย';
+            case 'instructor':
+                return 'อาจารย์';
+            case 'student':
+                return 'นักศึกษา';
+            case 'other':
+                return 'อื่นๆ';
+            default :
+                return 'อื่นๆ';
+        endswitch;
+    }
+
+    public function edit_user_detail() {
+        $this->admin_model->update_user_detail();
+        $user_id = $this->input->post('user_id');
+        $location = site_url() . '/admin/user_detail/' . $user_id;
+        redirect($location);
     }
 
 }
