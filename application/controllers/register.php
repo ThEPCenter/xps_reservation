@@ -32,8 +32,8 @@ class Register extends CI_Controller {
     public function process() {
         $email = $this->input->post('email');
         if (!empty($email)):
-            $this->register_model->add_new_user();
             $this->send_confirm_email($email);
+            $this->register_model->add_new_user();
             $email = urlencode($email);
             redirect("register/send_email/$email");
         else:
@@ -45,7 +45,15 @@ class Register extends CI_Controller {
         if (!empty($email)) {
             $confirm_code = substr(md5(microtime()), rand(0, 26), 16);
 
-            $this->register_model->insert_confirm_code($confirm_code, $email);
+            // $config['protocol'] = 'smtp';
+            // $config['smtp_host'] = 'smtp.gmail.com';
+            // $config['smtp_user'] = '';
+            // $config['smtp_pass'] = '';
+            // $config['smtp_port'] = 465;
+            $config['wordwrap'] = FALSE;
+
+            $this->email->initialize($config);
+
             $this->email->from('xps_noreply@thep-center.org', 'XPS ThEP');
             $this->email->to($email);
             $this->email->subject('XPS Email confirmation');
@@ -53,7 +61,9 @@ class Register extends CI_Controller {
 
             $this->email->message("$message");
 
-            if (!$this->email->send()) {
+            if ($this->email->send()) {
+                $this->register_model->insert_confirm_code($confirm_code, $email);
+            } else {
                 redirect('login');
             }
         }
@@ -87,7 +97,7 @@ class Register extends CI_Controller {
             }
         endif;
     }
-    
+
     public function check_email() {
         $data['msg'] = $this->register_model->get_email();
         $this->load->view('check_email_view', $data);
