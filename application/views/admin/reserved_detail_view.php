@@ -1,6 +1,6 @@
 
 <section>
-    <h2>รายละเอียดการจองคิว</h2>
+    <h2>ข้อมูลการจองคิว</h2>
     <h3 style="margin-bottom: 15px;"><?php echo date("l, F j, Y", strtotime($reserved_date)); ?></h3>
 
     <p><span class="detail-title">ชื่อผู้จอง:</span> <a href="<?php echo site_url(); ?>/admin/user_detail/<?php echo $user_id; ?>"><?php echo $firstname; ?> <?php echo $lastname; ?></a></p>
@@ -114,8 +114,8 @@
                     </div>
 
                     <div class="modal-footer">                        
-                        <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> ยืนยัน</button> &nbsp;
-                        <button type="button" class="btn btn-default btn-lg"data-dismiss="modal"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> ยกเลิก</button>
+                        <button type="button" class="btn btn-default btn-lg"data-dismiss="modal"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> ยกเลิก</button> &nbsp;
+                        <button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> ยืนยัน</button>                        
                     </div>
                 </form>
             </div>

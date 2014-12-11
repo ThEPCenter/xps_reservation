@@ -64,9 +64,9 @@
 
                     </div>
 
-                    <div class="modal-footer">                        
-                        <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> ยืนยัน</button> &nbsp;
-                        <button type="button" class="btn btn-default btn-lg"data-dismiss="modal"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> ยกเลิก</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-lg"data-dismiss="modal"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> ยกเลิก</button> &nbsp;
+                        <button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> ยืนยัน</button>
                     </div>
                 </form>
             </div>

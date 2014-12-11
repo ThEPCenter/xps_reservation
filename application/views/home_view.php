@@ -83,7 +83,7 @@
             <header>
                 <a href="<?php echo site_url(); ?>">
                     <div class="page-header" style="margin-top: 5px;">
-                        <h1 style="margin-top: 5px;">XPS <small>Thailand Center of Excellence in Physics (ThEP)</small></h1>
+                        <h1>ระบบการจองเครื่อง XPS</h1>
                     </div>
                 </a>
             </header>
@@ -97,7 +97,9 @@
                 </section>
             <?php endif; ?>
 
-            <div id="calendar"></div>
+            <h2 style="text-align: center;">ปฏิทินรายการจองคิว</h2>
+
+            <div id="calendar" style="margin-top: 15px;"></div>
 
             <section>
                 <P>&nbsp;</P>
@@ -105,5 +107,5 @@
                     *** จองได้สัปดาห์ละ 4 วัน จันทร์-ศุกร์ วันไหนก็ได้<br>
                     สัปดาห์สุดท้ายของเดือน รับ 3 คิว
                 </h4>
-                <P>&nbsp;</P>
+                <p>&nbsp;</p>
             </section>

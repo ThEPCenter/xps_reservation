@@ -1,6 +1,6 @@
 
 <section>
-    <h2>ข้อมูลผู้ใช้</h2>
+    <h2><span class="glyphicon glyphicon-user" aria-hidden="true"></span> ข้อมูลผู้ใช้</h2>
     <p><span class="detail-title">ชื่อและนามสกุล:</span> <?php echo $firstname . ' ' . $lastname; ?></p>
     <p><span class="detail-title">Email:</span> <?php echo $email; ?></p>
     <p><span class="detail-title">โทรศัพท์:</span> <?php echo $phone; ?></p>
@@ -21,7 +21,7 @@
     <?php if ($this->session->userdata('user_id') == $user_id): ?>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-top: 10px;">
             <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> แก้ไขข้อมูล
-        </button>
+        </button> &nbsp;
     <?php endif; ?>
 
     <a href="<?php echo site_url(); ?>/admin/calendar">
@@ -93,8 +93,8 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> ยืนยัน</button>
+                            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> ยืนยัน</button>
                         </div>
                     </form>
                 </div>
@@ -103,7 +103,7 @@
     </div>
     <p>&nbsp;</p>
 
-    <h3>รายการ จองคิว</h3>
+    <h3><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> รายการ จองคิว</h3>
     <table class="table table-bordered">
         <tr>
             <th>วันที่จอง</th>

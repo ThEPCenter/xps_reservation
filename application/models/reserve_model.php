@@ -64,4 +64,27 @@ class Reserve_model extends CI_Model {
         $this->db->delete('xps_reservation', array('reserved_id' => $reserved_id));
     }
 
+    public function check_reserved_date($reserve_date) {
+        $time_stamp = strtotime($reserve_date);
+
+        // check not before today
+        $now_stamp = time();
+        if ($time_stamp <= $now_stamp) :
+            redirect('home');
+        endif;
+
+        // check reserved (including holiday and maintenance).
+        $this->db->where('reserved_date', $reserve_date);
+        $query = $this->db->get('xps_reservation');
+        if ($query->num_rows() > 0):
+            redirect('home');
+        endif;
+
+        // check saturday or sunday
+        $time_day = date("l", $time_stamp);
+        if ($time_day == 'Saturday' || $time_day == 'Sunday'):
+            redirect('home');
+        endif;
+    }
+
 }

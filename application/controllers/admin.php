@@ -141,7 +141,7 @@ class Admin extends CI_Controller {
         endforeach;
 
         $data['reserve_date'] = $reserve_date;
-        $data['title'] = 'ข้อมูลการจอง';
+        $data['title'] = 'ข้อมูลการจองคิว';
         $this->load->view('templates/header', $data);
         $this->load->view('admin/reserved_detail_view');
         $this->load->view('templates/footer');
@@ -202,7 +202,7 @@ class Admin extends CI_Controller {
         $data['q_reservation'] = $this->admin_model->get_user_reservation($user_id);
 
         $data['user_id'] = $user_id;
-        $data['title'] = 'รายละเอียด user';
+        $data['title'] = 'ข้อมูลผู้ใช้';
         $this->load->view('templates/header', $data);
         $this->load->view('admin/user_detail_view');
         $this->load->view('templates/footer');

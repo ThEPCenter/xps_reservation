@@ -1,6 +1,6 @@
 
 <section>
-    <h2>ข้อมูลผู้ใช้</h2>
+    <h2><span class="glyphicon glyphicon-user" aria-hidden="true"></span> ข้อมูลผู้ใช้</h2>
     <p><span class="detail-title">ชื่อและนามสกุล:</span> <?php echo $firstname . ' ' . $lastname; ?></p>
     <p><span class="detail-title">Email:</span> <?php echo $email; ?></p>
     <p><span class="detail-title">โทรศัพท์:</span> <?php echo $phone; ?></p>
@@ -103,7 +103,7 @@
     </div>
     <p>&nbsp;</p>
 
-    <h3>รายการ จองคิว</h3>
+    <h3><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> รายการ จองคิว</h3>
     <table class="table table-bordered">
         <tr>
             <th>วันที่จอง</th>

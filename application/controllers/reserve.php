@@ -22,7 +22,7 @@ class Reserve extends CI_Controller {
         if (!($this->session->userdata('validated'))) {
             redirect('login');
         }
-        
+
         if ($this->session->userdata('level') == 10) {
             redirect('admin');
         }
@@ -36,6 +36,7 @@ class Reserve extends CI_Controller {
     }
 
     public function reserved_date($date_reserve) {
+        $this->reserve_model->check_reserved_date($date_reserve);
         $data['date_stamp'] = strtotime($date_reserve);
         $data['user_id'] = $this->session->userdata('user_id');
         $data['firstname'] = $this->session->userdata('firstname');
@@ -86,10 +87,10 @@ class Reserve extends CI_Controller {
 
         $subject_text = "XPS reservation. " . date("Y-m-d H:i:s");
         $adminemail = $this->admin_email();
-        
+
         $config['wordwrap'] = FALSE;
         $this->email->initialize($config);
-        
+
         $this->email->from('xps_noreply@thep-center.org', 'XPS ThEP');
         $this->email->to($adminemail);
         $this->email->subject($subject_text);
@@ -121,7 +122,7 @@ class Reserve extends CI_Controller {
         $query = $this->db->get('xps_user');
         $email_list = array();
         $nums = $query->num_rows();
-        for($i=1;$i<$nums;$i++):
+        for ($i = 1; $i < $nums; $i++):
             $email_list[$i] = '';
         endfor;
         $i = 0;
