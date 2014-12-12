@@ -43,7 +43,7 @@ class Register_model extends CI_Model {
             'user_id' => $user_id,
             'created' => date("Y-m-d H:i:s")
         );
-        $this->db->insert('xps_user_position', $data_position);        
+        $this->db->insert('xps_user_position', $data_position);
     }
 
     public function insert_confirm_code($confirm_code, $email) {
@@ -58,6 +58,7 @@ class Register_model extends CI_Model {
             'created' => date("Y-m-d H:i:s")
         );
         $this->db->insert('xps_user_confirm', $data);
+        return $user_id;
     }
 
     public function check_confirm_email($confirm_code) {
@@ -67,12 +68,6 @@ class Register_model extends CI_Model {
         if ($query->num_rows() == 1):
             foreach ($query->result() as $row) :
                 $user_id = $row->user_id;
-
-                $this->db->where('user_id', $user_id);
-                $qu = $this->db->get('xps_user');
-                foreach ($qu->result() as $r):
-                    $email = $r->email;
-                endforeach;
             endforeach;
 
             $data = array(
@@ -85,24 +80,21 @@ class Register_model extends CI_Model {
             $data_confirm = array('confirmed' => date("Y-m-d H:i:s"));
             $this->db->where('confirm_code', $confirm_code);
             $this->db->update('xps_user_confirm', $data_confirm);
-
-            return $email;
-
+            return $user_id;
         else:
-
             return FALSE;
         endif;
     }
 
-    public function login_after_confirm($email) {
+    public function login_after_confirm($user_id) {
         $data_update = array(
             'recent_login' => date("Y-m-d H:i:s"),
             'last_login' => date("Y-m-d H:i:s")
         );
-        $this->db->where('email', $email);
+        $this->db->where('user_id', $user_id);
         $this->db->update('xps_user', $data_update);
 
-        $this->db->where('email', $email);
+        $this->db->where('user_id', $user_id);
         $query = $this->db->get('xps_user');
         $row = $query->row();
         $data = array(
@@ -122,7 +114,7 @@ class Register_model extends CI_Model {
 
     public function get_email() {
         $register_email = $this->security->xss_clean($this->input->get('register_email'));
-        $this->db->where('email', $register_email);        
+        $this->db->where('email', $register_email);
         $query = $this->db->get('xps_user');
         if ($query->num_rows == 1):
             return '<span style="color: red" class="glyphicon glyphicon-remove"></span> <b style="color: red">อีเมลนี้ซ้ำ</b>';

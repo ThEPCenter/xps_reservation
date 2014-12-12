@@ -42,17 +42,28 @@ class Login extends CI_Controller {
             if ($this->session->userdata('active') == 1):
                 redirect('home');
             else:
-                $email = urlencode($this->session->userdata('email'));
+                $user_id = $this->session->userdata('user_id');
                 // Logout
                 $this->session->sess_destroy();
-                redirect("login/not_confirm/$email");
+                redirect("login/not_confirm/$user_id");
             endif;
         }
     }
 
-    public function not_confirm($email) {
-        if (!empty($email)):
-            $data['email'] = urldecode($email);
+    public function not_confirm($user_id) {
+        if (!empty($user_id)):
+            $user_id = $this->security->xss_clean($user_id);
+            $this->db->where('user_id', $user_id);
+            $query = $this->db->get('xps_user');
+            if ($query->num_rows() == 1):
+                foreach ($query->result() as $row):
+                    $email = $row->email;
+                endforeach;
+            else:
+                redirect('login');
+            endif;
+
+            $data['email'] = $email;
             $data['title'] = "ยังไม่ได้ยืนยันอีเมล";
             $this->load->view('templates/header', $data);
             $this->load->view('not_confirm_view', $data);

@@ -51,11 +51,10 @@ class Reserve extends CI_Controller {
         $reserved_date = $this->reserve_model->add_reserved();
         if ($reserved_date):
             $this->send_reserved_email();
-            $location = 'reserve/reserved_detail/' . $reserved_date;
         else:
             $location = 'home/calendar';
+            redirect($location);
         endif;
-        redirect($location);
     }
 
     public function send_reserved_email() {
@@ -85,36 +84,77 @@ class Reserve extends CI_Controller {
             $sample_detail = $r_re->detail;
         endforeach;
 
-        $subject_text = "XPS reservation. " . date("Y-m-d H:i:s");
-        $adminemail = $this->admin_email();
-
-        $config['wordwrap'] = FALSE;
-        $this->email->initialize($config);
-
-        $this->email->from('xps_noreply@thep-center.org', 'XPS ThEP');
-        $this->email->to($adminemail);
-        $this->email->subject($subject_text);
-
-        $message = "วันที่จอง: " . date("l, F j, Y", strtotime($reserved_date)) . "\r\n";
-        $message .= "จำนวน Sample: " . $sample_number . "\r\n";
-        $message .= "รายละเอียด Sample: " . $sample_detail . "\r\n\r\n";
-        $message .= "ชื่อผู้จอง: " . $firstname . ' ' . $lastname . "\r\n";
+        $reserved_time = strtotime($reserved_date);
+        $encode_email = urlencode($email);
+        $sample_detail = urlencode($sample_detail);
+        $email_list = $this->admin_emails();
+        $admin_email = urlencode($email_list);
+        $location = "http://cnxlove.com/services/admin_mail_service.php";
+        $location .= "?admin_email=$admin_email&email=$encode_email&reserved_date=$reserved_time";
+        $location .= "&sample_number=$sample_number&sample_detail=$sample_detail";
         if ($position == 'other'):
             $position = $detail;
         endif;
-        $message .= "Email: " . $email . "\r\n";
-        $message .= "โทรศัพท์: " . $phone . "\r\n";
-        $message .= "ตำแหน่ง / อาชีพ: " . $position . "\r\n";
-        if (!empty($supervisor)):
-            $message .= "อาจารย์ที่ปรึกษา (supervisor): " . $supervisor . "\r\n";
-        endif;
-        $message .= "สถาบัน/สถานศึกษา/หน่วยงาน: " . $institute;
+        $position = urlencode($position);
+        $phone = urlencode($phone);
+        $location .= "&firstname=$firstname&lastname=$lastname&position=$position&phone=$phone";
+        $supervisor = urlencode($supervisor);
+        $institute = urlencode($institute);
+        $location .= "&supervisor=$supervisor&institute=$institute";
+        $location .= "&token=cf427b0e093236e1009b00b7561e3294cb99a8d0";
+        redirect($location);
 
-        $this->email->message($message);
+        /**
+         * Use this if it work
 
-        if (!$this->email->send()) {
-            redirect('home');
+          $adminemail = $this->admin_email();
+          $subject_text = "XPS reservation. " . date("Y-m-d H:i:s");
+
+          $config['wordwrap'] = FALSE;
+          $this->email->initialize($config);
+
+          $this->email->from('xps_noreply@thep-center.org', 'XPS ThEP');
+          $this->email->to($adminemail);
+          $this->email->subject($subject_text);
+
+          $message = "วันที่จอง: " . date("l, F j, Y", strtotime($reserved_date)) . "\r\n";
+          $message .= "จำนวน Sample: " . $sample_number . "\r\n";
+          $message .= "รายละเอียด Sample: " . $sample_detail . "\r\n\r\n";
+          $message .= "ชื่อผู้จอง: " . $firstname . ' ' . $lastname . "\r\n";
+          if ($position == 'other'):
+          $position = $detail;
+          endif;
+          $message .= "Email: " . $email . "\r\n";
+          $message .= "โทรศัพท์: " . $phone . "\r\n";
+          $message .= "ตำแหน่ง / อาชีพ: " . $position . "\r\n";
+          if (!empty($supervisor)):
+          $message .= "อาจารย์ที่ปรึกษา (supervisor): " . $supervisor . "\r\n";
+          endif;
+          $message .= "สถาบัน/สถานศึกษา/หน่วยงาน: " . $institute;
+
+          $this->email->message($message);
+
+          if (!$this->email->send()) {
+          redirect('home');
+          }
+         */
+    }
+
+    public function admin_emails() {
+        $this->db->where('level', 10);
+        $query = $this->db->get('xps_user');
+        $email_list = "";
+        $nums = $query->num_rows();
+        $i = 0;
+        foreach ($query->result() as $row) {
+            $email_list .= $row->email;
+            if (++$i == $nums):
+                $email_list .= '';
+            else:
+                $email_list .= ',';
+            endif;
         }
+        return $email_list;
     }
 
     public function admin_email() {
