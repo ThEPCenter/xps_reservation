@@ -31,11 +31,22 @@ class Register extends CI_Controller {
 
     public function process() {
         $email = $this->input->post('email');
+        $confirm_code = substr(md5(microtime()), rand(0, 26), 16);
+
         if (!empty($email)):
+
+            $data['email'] = $email;
+            $data['confirm_code'] = $confirm_code;
+            $data['token'] = 'cf427b0e093236e1009b00b7561e3294cb99a8d0';
+
             // $this->register_model->add_new_user();
-            $this->send_confirm_email($email);
-            $email = urlencode($email);
-            redirect("register/send_email/$email");
+            // $this->send_confirm_email($email);
+            // $email = urlencode($email);
+            // redirect("register/send_email/$email");
+
+            $data['title'] = 'ผลการสมัคร';
+            $this->load->view('register_result_view', $data);
+            $this->load->view('templates/footer');
         else:
             redirect('login');
         endif;
@@ -43,7 +54,7 @@ class Register extends CI_Controller {
 
     public function send_confirm_email($email) {
         if (!empty($email)) {
-            $confirm_code = substr(md5(microtime()), rand(0, 26), 16);
+            // $confirm_code = substr(md5(microtime()), rand(0, 26), 16);
 
 
             /** Use this if it work
@@ -81,14 +92,14 @@ class Register extends CI_Controller {
             $this->db->where('confirm_code', $confirm_code);
             $q_confirm = $this->db->get('xps_user_confirm');
             foreach ($q_confirm->result() as $r_confirm):
-                $user_id = $r_confirm->user_id;            
+                $user_id = $r_confirm->user_id;
             endforeach;
             $this->db->where('user_id', $user_id);
             $q_user = $this->db->get('xps_user');
             foreach ($q_user->result() as $user):
                 $email = $user->email;
             endforeach;
-            
+
             $data['text'] = "<p>ระบบได้ส่งลิงค์ยืนยันการสมัครไปยังอีเมล: $email</p> <p><strong>กรุณากดยืนยันลิงค์ดังกล่าวก่อน อีเมลของท่านจึงจะสามารถเข้าใช้งานได้</strong></p>";
             $data['text'] .= "<p>**หมายเหตุ: หากไม่พบอีเมลยืนยันใน กล่องขาเข้า (Inbox) กรุณาตรวจสอบในกล่อง อีเมลขยะ หรือ กล่อง Spam</p>";
             $this->load->view('templates/header', $data);
