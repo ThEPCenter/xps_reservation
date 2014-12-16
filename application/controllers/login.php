@@ -26,6 +26,14 @@ class Login extends CI_Controller {
         $this->load->view('login_view', $data);
         $this->load->view('templates/footer');
     }
+    
+    public function error($error_msg){
+        $data['title'] = "Error Login";
+        $data['error_msg'] = urldecode($error_msg);
+        $this->load->view('templates/header', $data);
+        $this->load->view('login_view', $data);
+        $this->load->view('templates/footer');
+    }
 
     public function process() {
         // Load the model

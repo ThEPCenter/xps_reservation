@@ -42,6 +42,41 @@
                 <input class="form-control register_email" type="email" name="email" required placeholder="อีเมล" style="width: 100%; margin-top: 15px; margin-bottom: 5px;">
             </div>
             <button type="button" id="check_email">Check email</button>&nbsp;<span id="check_result"></span>
+            <script>
+                $(function () {
+
+                    $("#check_email").click(function () {
+                        $(document).ajaxStart(function () {
+                            $("#check_result").html("<img src=\"<?php echo base_url(); ?>images/indicator_big.gif\">");
+                        });
+                        $.ajax({
+                            url: "<?php echo site_url(); ?>/register/check_email",
+                            data: {
+                                register_email: $(".register_email").val()
+                            },
+                            success: function (data) {
+                                $("#check_result").html(data);
+                            }
+                        });
+                    });
+
+                    $(".register_email").focusout(function () {
+                        $(document).ajaxStart(function () {
+                            $("#check_result").html("<img src=\"<?php echo base_url(); ?>images/indicator_big.gif\">");
+                        });
+                        $.ajax({
+                            url: "<?php echo site_url(); ?>/register/check_email",
+                            data: {
+                                register_email: $(".register_email").val()
+                            },
+                            success: function (data) {
+                                $("#check_result").html(data);
+                            }
+                        });
+                    });
+
+                });
+            </script>
             <div>
                 <input class="form-control" type="password" name="password" required placeholder="รหัสผ่านใหม่" style="width: 100%; margin-top: 15px;">
             </div>
@@ -70,7 +105,14 @@
                 <input class="form-control" name="institute" id="institute" required style="width: 100%; margin-bottom: 10px;">
                 <br>
 
-                <button type="submit" class="btn btn-default btn-lg">สมัครใช้งาน</button>
+                <div class="g-recaptcha" data-sitekey="6LcLV_8SAAAAAIPn3mltIpW_wodxT8rPVx9poQy2"></div>                
+                <br>
+                <div style="color: red; margin-top: 30px;">
+                    <?php if (!empty($error_msg)): ?>
+                        <?php echo $error_msg; ?>
+                    <?php endif; ?>
+                </div>
+                <button style="margin-top: 20px;" type="submit" class="btn btn-default btn-lg">สมัครใช้งาน</button>
 
             </div>
     </form>

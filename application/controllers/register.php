@@ -30,22 +30,63 @@ class Register extends CI_Controller {
     }
 
     public function process() {
-        $email = $this->input->post('email');
-        $confirm_code = substr(md5(microtime()), rand(0, 26), 16);
 
-        if (!empty($email)):
+        $recaptcha = $this->input->post('g-recaptcha-response');
 
-            $data['email'] = $email;
-            $data['confirm_code'] = $confirm_code;
-            $data['token'] = 'cf427b0e093236e1009b00b7561e3294cb99a8d0';
+        if (!empty($recaptcha)):
+            include("recaptcha/getCurlData.php");
+            $google_url = "https://www.google.com/recaptcha/api/siteverify";
+            $secret = '6LcLV_8SAAAAALq9QzOQoMY59_5g9Me95FBNwb1s';
+            $ip = $this->input->ip_address();
+            $url = $google_url . "?secret=" . $secret . "&response=" . $recaptcha . "&remoteip=" . $ip;
+            $res = getCurlData($url);
+            $res = json_decode($res, true);
 
-            // $this->register_model->add_new_user();
-            // $this->send_confirm_email($email);
-            // $email = urlencode($email);
-            // redirect("register/send_email/$email");
+            $email = $this->input->post('email');
+            $confirm_code = substr(md5(microtime()), rand(0, 26), 16);
 
-            $data['title'] = 'ผลการสมัคร';
-            $this->load->view('register_result_view', $data);
+            if (!empty($email)):
+
+                $this->register_model->add_new_user();
+                $user_id = $this->register_model->insert_confirm_code($confirm_code, $email);
+
+                $encode_email = urlencode($email);
+                $location = "http://cnxlove.com/mail_services/index.php/register/send_confirm_email/$encode_email/$confirm_code/$user_id/cf427b0e093236e1009b00b7561e3294cb99a8d0";
+                redirect($location);
+
+            else:
+                redirect('login');
+            endif;
+
+        else:
+            $error_msg = "Please re-enter your reCAPTCHA";
+            redirect('login/error/' . $error_msg);
+        endif;
+    }
+
+    public function result($status, $user_id) {
+        if ($status == 'success' && !empty($user_id)):
+            $this->db->where('user_id', $user_id);
+            $q_user = $this->db->get('xps_user');
+            if ($q_user->num_rows() != 1):
+                redirect('login');
+            endif;
+            foreach ($q_user->result() as $user):
+                $email = $user->email;
+                $active = $user->active;
+                if ($active == 1):
+                    redirect('login');
+                endif;
+            endforeach;
+
+            $text = "<h4>ระบบได้ส่งลิงค์ยืนยันการสมัครไปยังอีเมล: $email</h4> ";
+            $text .= "<h3>กรุณากดยืนยันลิงค์ดังกล่าวก่อน อีเมลของท่านจึงจะสามารถเข้าใช้งานได้</h3>";
+            $text .= "<h4>**หมายเหตุ: หากไม่พบอีเมลยืนยันใน กล่องขาเข้า (Inbox) กรุณาตรวจสอบในกล่อง อีเมลขยะ หรือ กล่อง Spam</h4>";
+
+            $data['text'] = $text;
+            $data['title'] = "ขอบคุณที่สมัครใช้บริการ";
+            $this->load->view('templates/header', $data);
+            $this->load->view('send_view');
             $this->load->view('templates/footer');
         else:
             redirect('login');
@@ -133,7 +174,7 @@ class Register extends CI_Controller {
     }
 
     public function check_email() {
-        $data['msg'] = $this->register_model->get_email();
+        $data['check_msg'] = $this->register_model->get_email();
         $this->load->view('check_email_view', $data);
     }
 

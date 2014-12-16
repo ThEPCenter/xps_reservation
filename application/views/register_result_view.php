@@ -30,7 +30,7 @@
         <script>
             window.onload = function () {
                 $(function () {
-                    $.post("http://localhost/mail_services/index.php/register/send_confirm_email", {email: "<?php echo $email; ?>", comfirm_code: "<?php echo $confirm_code; ?>", token: "<?php echo $token; ?>"},
+                    $.get("http://cnxlove.com/mail_services/index.php/register/send_confirm_email", {email: "<?php echo $email; ?>", comfirm_code: "<?php echo $confirm_code; ?>", token: "<?php echo $token; ?>"},
                     function (data) {
                         $("#show-result").html(data);
                     });
