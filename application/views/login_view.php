@@ -1,25 +1,24 @@
 
-<section style="background-color: #c0c0c0; padding-top: 10px; padding-bottom: 10px; padding-left: 15px;">
+<h3>เข้าสู่ระบบ (Login)</h3>
+<section style="background-color: #c0c0c0; padding-top: 10px; padding-bottom: 10px; padding-left: 15px;">    
     <form class="form-inline" role="form" method="post" action="<?php echo site_url(); ?>/login/process">
         <div class="input-group" style="margin-right: 15px;">
-            <label class="" for="exampleInputEmail2">Email address</label>            
-            <input style="border-radius: 0;" type="email" name="email" class="form-control" required id="exampleInputEmail2" placeholder="Email">
+            <label class="" for="emailLogin">Email address</label>            
+            <input style="border-radius: 0;" type="email" name="email" class="form-control" required id="emailLogin" placeholder="Email">
         </div>
 
-
         <div class="input-group" style="margin-right: 15px;">
-            <label class="" for="exampleInputPassword2">Password</label>
-            <input style="border-radius: 0;" type="password" name="password" class="form-control" required id="exampleInputPassword2" placeholder="Password"> 
-        </div>        
-
+            <label class="" for="passwordLogin">Password</label>
+            <input style="border-radius: 0;" type="password" name="password" class="form-control" required id="passwordLogin" placeholder="Password"> 
+        </div>
 
         <div class="input-group" style="margin-top: 25px;">
             <label class="sr-only">Button</label>
-            <button type="submit" class="btn btn-default">เข้าสู่ระบบ</button>
+            <button type="submit" id="loginButton" class="btn btn-default">เข้าสู่ระบบ</button>
         </div>
 
-        <div style="margin-top: 10px;">            
-            <input type="checkbox" name="remember"> Remember me
+        <div style="margin-top: 10px;">
+            <input type="checkbox" id="saveLogin"> Remember me
         </div>
     </form>
 </section>
@@ -93,7 +92,7 @@
                     <option value="other">อื่นๆ</option>
                 </select>
 
-                <label>- ถ้าเลือก อื่นๆ</label>
+                <label>- ถ้าเลือก อาชีพ/ตำแหน่ง อื่นๆ</label>
                 <input class="form-control" name="detail" id="detail" style="width: 100%; margin-bottom: 10px;" placeholder="&nbsp;โปรดระบุ อาชีพ / ตำแหน่ง">
                 <br>
 
@@ -101,7 +100,7 @@
                 <input class="form-control" name="supervisor" id="supervisor" style="width: 100%; margin-bottom: 10px;" placeholder="&nbsp;โปรดระบุ ชื่ออาจารย์ที่ปรึกษา / supervisor (ถ้ามี)">
                 <br>
 
-                <label><span style="color: red;">**</span>สถาบัน / มหาวิทยาลัย / หน่วยงาน</label>
+                <label>สถาบัน / มหาวิทยาลัย / หน่วยงาน <span style="color: red;">**</span></label>
                 <input class="form-control" name="institute" id="institute" required style="width: 100%; margin-bottom: 10px;">
                 <br>
 
@@ -112,8 +111,31 @@
                         <?php echo $error_msg; ?>
                     <?php endif; ?>
                 </div>
-                <button style="margin-top: 20px;" type="submit" class="btn btn-default btn-lg">สมัครใช้งาน</button>
-
+                <button style="margin-top: 20px;" type="submit" class="btn btn-default btn-lg">สมัครใช้งาน</button>                
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span style="cursor: pointer; text-decoration: underline;" data-toggle="modal" data-target=".bs-example-modal-lg">ข้อตกลงและเงื่อนไข</span>
             </div>
+        </div> <!-- /.input-group -->
     </form>
+
+    
+    
+    <!-- Large modal -->
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">                        
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">ข้อตกลงและเงื่อนไข</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>

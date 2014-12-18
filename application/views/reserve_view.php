@@ -48,12 +48,12 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="myModalLabel">ยืนยันการจอง XPS</h4>
+                        <h4 class="modal-title" id="myModalLabel">ยืนยันการจองคิว XPS</h4>
                     </div>
                     <div class="modal-body">
                         <p>คุณแน่ใจที่จะจองคิวเครื่อง XPS ในวันที่</p>
-                        <p><?php echo date("l, F j, Y", $date_stamp); ?></p>
-                        <p><strong>หมายเหตุ:</strong> หลังจากคุณคลิก ยืนยัน ระบบจะส่งอีเมลไปยังผู้ดูแลเครื่อง XPS ทันที</p>
+                        <p><strong><?php echo date("l, F j, Y", $date_stamp); ?></strong></p>
+                        <p>หมายเหตุ: หลังจากคุณคลิก <strong>ยืนยัน</strong> ระบบจะบันทึกข้อมูลลงฐานข้อมูลทันที</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancel</button>

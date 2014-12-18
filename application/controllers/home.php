@@ -64,7 +64,7 @@ class Home extends CI_Controller {
         $data['firstname'] = $this->session->userdata('firstname');
         $data['lastname'] = $this->session->userdata('lastname');
         $data['email'] = $this->session->userdata('email');
-        $data['title'] = 'Home';
+        $data['title'] = 'ปฏิทินรายการจองคิว XPS';
         $this->load->view('home_view', $data);
         $this->load->view('templates/footer');
     }
