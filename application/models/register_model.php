@@ -55,13 +55,17 @@ class Register_model extends CI_Model {
 
     public function get_email() {
         $register_email = $this->security->xss_clean($this->input->get('register_email'));
-        $this->db->where('email', $register_email);
-        $query = $this->db->get('xps_user');
-        if ($query->num_rows == 1):
-            return '<span style="color: red" class="glyphicon glyphicon-remove"></span> <b style="color: red">อีเมลนี้ซ้ำ</b>';
-        else:
-            return '<span style="color: green" class="glyphicon glyphicon-ok"></span> <b style="color: green">อีเมลนี้สามารถใช้ได้</b>';
-        endif;
+        if (!filter_var($register_email, FILTER_VALIDATE_EMAIL)) {
+            return '<span style="color: red" class="glyphicon glyphicon-remove"></span> <b style="color: red">รูปแบบอีเมลไม่ถูกต้อง (Invalid email format)</b>';
+        } else {
+            $this->db->where('email', $register_email);
+            $query = $this->db->get('xps_user');
+            if ($query->num_rows == 1):
+                return '<span style="color: red" class="glyphicon glyphicon-remove"></span> <b style="color: red">อีเมลนี้ซ้ำ</b>';
+            else:
+                return '<span style="color: green" class="glyphicon glyphicon-ok"></span> <b style="color: green">อีเมลนี้สามารถใช้ได้</b>';
+            endif;
+        }
     }
 
 }
