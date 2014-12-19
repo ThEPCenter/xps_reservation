@@ -142,6 +142,9 @@ class Admin extends CI_Controller {
 
         $data['reserve_date'] = $reserve_date;
         $data['title'] = 'ข้อมูลการจองคิว';
+
+        $this->admin_model->notification_checked($data['reserved_id']);
+
         $this->load->view('templates/header', $data);
         $this->load->view('admin/reserved_detail_view');
         $this->load->view('templates/footer');
@@ -153,7 +156,8 @@ class Admin extends CI_Controller {
         $data['firstname'] = $this->session->userdata('firstname');
         $data['lastname'] = $this->session->userdata('lastname');
         $data['title'] = 'จองคิว';
-        $this->load->view('templates/header', $data);
+        $data['notification_number'] = $this->notification_number();
+        $this->load->view('admin/header', $data);
         $this->load->view('admin/reserve_view');
         $this->load->view('templates/footer');
     }
@@ -228,6 +232,26 @@ class Admin extends CI_Controller {
         $user_id = $this->input->post('user_id');
         $location = site_url() . '/admin/user_detail/' . $user_id;
         redirect($location);
+    }
+
+    public function notification_number() {
+        return $this->admin_model->get_notification_number();
+    }
+
+    public function notification_data() {
+        return $this->admin_model->get_notification_data();
+    }
+
+    public function notifications() {
+        if ($this->notification_number() > 0):
+            $query = $this->admin_model->get_notification_data();
+            foreach ($query->result() as $row) {
+                $reserved_id = $row->reserved_id;
+                if ($this->admin_model->is_checked_notification($reserved_id)):
+
+                endif;
+            }
+        endif;
     }
 
 }

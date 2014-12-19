@@ -116,4 +116,47 @@ class Admin_model extends CI_Model {
         $this->db->update('xps_user_position', $data_position);
     }
 
+    public function get_notification_number() {
+        $user_id = $this->session->userdata('user_id');
+
+        $q_reservation = $this->db->get('xps_reservation');
+        $reservation_number = $q_reservation->num_rows();
+
+        $this->db->where('user_id', $user_id);
+        $q_self = $this->db->get('xps_reservation');
+        $self_number = $q_self->num_rows();
+
+        $this->db->where('user_id', $user_id);
+        $this->db->where('checked', 1);
+        $q_checked = $this->db->get('xps_notifications');
+        $checked_number = $q_checked->num_rows();
+
+        return ($reservation_number - $checked_number - $self_number);
+    }
+
+    public function get_notification_data() {
+        $user_id = $this->session->userdata('user_id');
+        $this->db->where('user_id !=', $user_id);
+        return $this->db->get('xps_reservation');
+    }
+
+    public function notification_checked($reserved_id) {
+        $user_id = $this->session->userdata('user_id');
+        $data = array('checked' => 1);
+        $this->db->where('reserved_id', $reserved_id);
+        $this->db->where('user_id', $user_id);
+        $this->db->update('xps_notifications', $data);
+    }
+
+    public function is_checked_notification($reserved_id) {
+        $this->db->where('reserved_id', $reserved_id);
+        $this->db->where('checked', 1);
+        $query = $this->db->get('xps_notification');
+        if ($query->num_rows() > 0):
+            return TRUE;
+        else:
+            return FALSE;
+        endif;
+    }
+
 }

@@ -50,7 +50,7 @@ class Reserve extends CI_Controller {
     public function process() {
         $reserved_date = $this->reserve_model->add_reserved();
         if ($reserved_date):
-            $location = 'reserve/reserved_detail' . $reserved_date;
+            $location = 'reserve/reserved_detail/' . $reserved_date;
             redirect($location);
         endif;
         $location = 'home/calendar';
