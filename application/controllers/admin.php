@@ -10,6 +10,7 @@ class Admin extends CI_Controller {
 
         // ======== Driver ======== //
         $this->load->database();
+        $this->load->dbforge();
 
         // ======== Helper ======== //
         $this->load->helper('url');
@@ -57,6 +58,9 @@ class Admin extends CI_Controller {
         $data['firstname'] = $this->session->userdata('firstname');
         $data['lastname'] = $this->session->userdata('lastname');
         $data['email'] = $this->session->userdata('email');
+
+        $data['notification_number'] = $this->notification_number();
+
         $data['title'] = 'Admin home';
         $this->load->view('admin/calendar_view', $data);
         $this->load->view('templates/footer');
@@ -142,10 +146,16 @@ class Admin extends CI_Controller {
 
         $data['reserve_date'] = $reserve_date;
         $data['title'] = 'ข้อมูลการจองคิว';
+        $data['notification_number'] = $this->notification_number();
 
-        $this->admin_model->notification_checked($data['reserved_id']);
+        $is_check = $this->admin_model->is_checked_notification($reserved_id);
+        if ($is_check != TRUE) {
+            $this->admin_model->notification_checked($reserved_id);
+        }
 
-        $this->load->view('templates/header', $data);
+        $data['notification_number'] = $this->notification_number();
+
+        $this->load->view('admin/header', $data);
         $this->load->view('admin/reserved_detail_view');
         $this->load->view('templates/footer');
     }
@@ -206,8 +216,11 @@ class Admin extends CI_Controller {
         $data['q_reservation'] = $this->admin_model->get_user_reservation($user_id);
 
         $data['user_id'] = $user_id;
+
+        $data['notification_number'] = $this->notification_number();
+
         $data['title'] = 'ข้อมูลผู้ใช้';
-        $this->load->view('templates/header', $data);
+        $this->load->view('admin/header', $data);
         $this->load->view('admin/user_detail_view');
         $this->load->view('templates/footer');
     }

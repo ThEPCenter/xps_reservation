@@ -41,14 +41,19 @@ class Register extends CI_Controller {
             $res = json_decode($res, true);
             if ($res['success']) {
                 $user_id = $this->register_model->add_new_user();
-                redirect('register/result/success/' . $user_id);
+                redirect(site_url() . '/register/result/success/' . $user_id);
             } else {
-                $error_msg = "Please re-enter your reCAPTCHA";
-                redirect('login/error/' . $error_msg);
+                if (!empty($res['error-codes'])) {
+                    $error_msg = $res['error-codes'];
+                } else {
+                    $error_msg = 'Error Not definded error.';
+                }
+                redirect(site_url() . '/login/error/' . urlencode($error_msg));
             }
         else:
-            $error_msg = "Please re-enter your reCAPTCHA";
-            redirect('login/error/' . $error_msg);
+            $error_msg = "Please enter your reCAPTCHA";
+            $location = site_url() . '/login/error/' . urlencode($error_msg);
+            redirect($location);
         endif;
     }
 

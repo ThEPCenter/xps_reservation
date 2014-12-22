@@ -28,7 +28,7 @@ class Login extends CI_Controller {
     }
 
     public function error($error_msg) {
-        $data['title'] = "Error Login";
+        $data['title'] = "Error Register";
         $data['error_msg'] = urldecode($error_msg);
         $this->load->view('templates/header', $data);
         $this->load->view('login_view', $data);
