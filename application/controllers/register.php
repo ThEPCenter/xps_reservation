@@ -29,38 +29,57 @@ class Register extends CI_Controller {
         }
     }
 
-    public function process() {
-        $recaptcha = $this->input->post('g-recaptcha-response');
-        if (!empty($recaptcha)):
-            include("recaptcha/getCurlData.php");
-            $google_url = "https://www.google.com/recaptcha/api/siteverify";
-            $secret = '6LcLV_8SAAAAALq9QzOQoMY59_5g9Me95FBNwb1s';
-            $ip = $this->input->ip_address();
-            $url = $google_url . "?secret=" . $secret . "&response=" . $recaptcha . "&remoteip=" . $ip;
-            $res = getCurlData($url);
-            $res = json_decode($res, true);
-            if ($res['success']) {
-                $user_id = $this->register_model->add_new_user();
-                redirect(site_url() . '/register/result/success/' . $user_id);
-            } else {
-                if (!empty($res['error-codes'])) {
-                    $error_msg = $res['error-codes'];
-                } else {
-                    $error_msg = 'Error Not definded error.';
-                }
-                redirect(site_url() . '/login/error/' . urlencode($error_msg));
-            }
+    public function data_confirmation() {
+        $email = $this->input->post('email');
+        if (!empty($email)):
+            $username = $this->security->xss_clean($this->input->post('username'));
+            $email = $this->input->post('email');
+            $password = $this->input->post('password');
+            $firstname = $this->security->xss_clean($this->input->post('firstname'));
+            $lastname = $this->security->xss_clean($this->input->post('lastname'));
+            $phone = $this->security->xss_clean($this->input->post('phone'));
+            $position = $this->security->xss_clean($this->input->post('position'));
+            $detail = $this->security->xss_clean($this->input->post('detail'));
+            $supervisor = $this->security->xss_clean($this->input->post('supervisor'));
+            $institute = $this->security->xss_clean($this->input->post('institute'));
+            $data = array(
+                'username' => $username,
+                'email' => $email,
+                'password' => $password,
+                'firstname' => $firstname,
+                'lastname' => $lastname,
+                'phone' => $phone,
+                'position' => $position,
+                'detail' => $detail,
+                'supervisor' => $supervisor,
+                'institute' => $institute,
+            );
+
+            $data['title'] = 'ยืนยันข้อมูล การสมัคร';
+            $this->load->view('templates/header', $data);
+            $this->load->view('register/process_view');
+            $this->load->view('templates/footer');
+
         else:
-            $error_msg = "Please enter your reCAPTCHA";
-            $location = site_url() . '/login/error/' . urlencode($error_msg);
+            redirect(site_url() . '/login');
+        endif;
+    }
+
+    public function process() {
+        $email = $this->input->post('email');
+        if (!empty($email)):
+            $user_id = $this->register_model->add_new_user();
+            $location = site_url() . '/register/result/success/' . $user_id;
             redirect($location);
+        else:
+            redirect('login');
         endif;
     }
 
     public function result($status, $user_id) {
         if ($status == 'success' && !empty($user_id)):
-            $text = "<h3>ขอบคุณที่สมัครใช้งาน</h3> ";
-            $text .= '<h4>ท่านสามารถเข้าสู่ระบบเพื่อจองคิวได้ที่หน้า  <a href="' . site_url() . '/login">Login</a></h4>';
+            $text = "<h3>ขอบคุณที่สมัครใช้งานระบบจองคิวเครื่อง  XPS</h3> ";
+            $text .= '<h4>ท่านสามารถเข้าสู่ระบบเพื่อจองคิวได้ที่หน้า  <a title="เข้าสู่ระบบ" href="' . site_url() . '/login">Login</a></h4>';
             $text .= "<h4>หากประสบปัญหาหรือมีข้อสงสัย กรุณาติดต่อ </h4>";
             $text .= "<h5>คุณชาญวิทย์ ศรีพรหม</h5>";
             $text .= "<h5>E-mail : chanvit82@hotmail.com</h5>";

@@ -27,7 +27,7 @@
 
 <section>
     <h3>สมัครใช้งาน</h3>
-    <form role="form" class="form-inline" method="post" action="<?php echo site_url(); ?>/register/process">
+    <form role="form" class="form-inline" method="post" action="<?php echo site_url(); ?>/register/data_confirmation">
         <div class="input-group" style="margin-right: 15px;">
             <div class="form-group">
                 <div class="input-group" style="margin-right: 15px;">
@@ -84,7 +84,7 @@
             </div>
 
             <div style="margin-bottom: 15px;">
-                <h4>อาชีพ / ตำแหน่ง</h4>
+                <h4>ตำแหน่ง / สถานภาพ </h4>
                 <select class="form-control" required name="position" id="position" style="width: 100%; margin-bottom: 10px;">
                     <option value="researcher">นักวิจัย</option>
                     <option value="instructor">อาจารย์</option>
@@ -92,7 +92,7 @@
                     <option value="other">อื่นๆ</option>
                 </select>
 
-                <label>- ถ้าเลือก อาชีพ/ตำแหน่ง อื่นๆ</label>
+                <label>- ถ้าเลือก ตำแหน่ง / สถานภาพ อื่นๆ</label>
                 <input class="form-control" name="detail" id="detail" style="width: 100%; margin-bottom: 10px;" placeholder="&nbsp;โปรดระบุ อาชีพ / ตำแหน่ง">
                 <br>
 
@@ -100,17 +100,10 @@
                 <input class="form-control" name="supervisor" id="supervisor" style="width: 100%; margin-bottom: 10px;" placeholder="&nbsp;โปรดระบุ ชื่ออาจารย์ที่ปรึกษา / supervisor (ถ้ามี)">
                 <br>
 
-                <label>สถาบัน / มหาวิทยาลัย / หน่วยงาน <span style="color: red;">**</span></label>
+                <label>สถาบัน / หน่วยงาน / องกรค์ <span style="color: red;">**</span></label>
                 <input class="form-control" name="institute" id="institute" required style="width: 100%; margin-bottom: 10px;">
                 <br>
 
-                <div class="g-recaptcha" data-sitekey="6LcLV_8SAAAAAIPn3mltIpW_wodxT8rPVx9poQy2"></div>                
-                <br>
-                <div style="color: red; margin-top: 30px;">
-                    <?php if (!empty($error_msg)): ?>
-                        <?php echo $error_msg; ?>
-                    <?php endif; ?>
-                </div>
                 <button style="margin-top: 20px;" type="submit" class="btn btn-default btn-lg">สมัครใช้งาน</button>                
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="cursor: pointer; text-decoration: underline;" data-toggle="modal" data-target=".bs-example-modal-lg">ข้อตกลงและเงื่อนไข</span>
@@ -118,8 +111,8 @@
         </div> <!-- /.input-group -->
     </form>
 
-    
-    
+
+
     <!-- Large modal -->
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">

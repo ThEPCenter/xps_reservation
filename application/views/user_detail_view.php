@@ -112,19 +112,25 @@
             <th>จองเมื่อ</th>
             <th>ปรับปรุงข้อมูลเมื่อ</th>
         </tr>
-        <?php foreach ($q_reservation->result() as $reservation): ?>
+        <?php if ($q_reservation->num_rows() == 0): ?>
             <tr>
-                <td>
-                    <a title="ดูรายระเอียด" href="<?php echo site_url(); ?>/reserve/reserved_detail/<?php echo $reservation->reserved_date; ?>">
-                        <?php echo $reservation->reserved_date; ?>
-                    </a>
-                </td>
-                <td style="text-align: center;"><?php echo $reservation->sample_number; ?></td>
-                <td><?php echo $reservation->detail; ?></td>
-                <td style="text-align: center;"><?php echo $reservation->created; ?></td>
-                <td style="text-align: center;"><?php echo $reservation->updated; ?></td>
+                <td colspan="5" style="text-align: center;">-- ไม่มีข้อมูลการจอง --</td>
             </tr>
-        <?php endforeach; ?>
+        <?php else: ?>
+            <?php foreach ($q_reservation->result() as $reservation): ?>
+                <tr>
+                    <td>
+                        <a title="ดูรายระเอียด" href="<?php echo site_url(); ?>/reserve/reserved_detail/<?php echo $reservation->reserved_date; ?>">
+                            <?php echo $reservation->reserved_date; ?>
+                        </a>
+                    </td>
+                    <td style="text-align: center;"><?php echo $reservation->sample_number; ?></td>
+                    <td><?php echo $reservation->detail; ?></td>
+                    <td style="text-align: center;"><?php echo $reservation->created; ?></td>
+                    <td style="text-align: center;"><?php echo $reservation->updated; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </table>
 
 </section>
