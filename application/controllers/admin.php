@@ -36,6 +36,15 @@ class Admin extends CI_Controller {
         redirect('admin/calendar');
     }
 
+    public function title($text) {
+        $notification_number = $this->notification_number();
+        if ($notification_number > 0):
+            return $text . ' (' . $notification_number . ')';
+        else:
+            return $text;
+        endif;
+    }
+
     public function calendar() {
         $query = $this->admin_model->get_reserved_date();
         $all_text = '';
@@ -59,9 +68,9 @@ class Admin extends CI_Controller {
         $data['lastname'] = $this->session->userdata('lastname');
         $data['email'] = $this->session->userdata('email');
 
+        $data['title'] = $this->title('Calendar');
         $data['notification_number'] = $this->notification_number();
 
-        $data['title'] = 'Admin home';
         $this->load->view('admin/calendar_view', $data);
         $this->load->view('templates/footer');
     }
@@ -152,20 +161,22 @@ class Admin extends CI_Controller {
         if ($is_check != TRUE) {
             $this->admin_model->notification_checked($reserved_id);
         }
-
+        $data['title'] = $this->title('ข้อมูลการจองคิว');
         $data['notification_number'] = $this->notification_number();
-
         $this->load->view('admin/header', $data);
         $this->load->view('admin/reserved_detail_view');
         $this->load->view('templates/footer');
     }
 
     public function reserved_date($date_reserve) {
+        if (empty($date_reserve)):
+            redirect('admin/calendar');
+        endif;
         $data['date_stamp'] = strtotime($date_reserve);
         $data['user_id'] = $this->session->userdata('user_id');
         $data['firstname'] = $this->session->userdata('firstname');
         $data['lastname'] = $this->session->userdata('lastname');
-        $data['title'] = 'จองคิว';
+        $data['title'] = $this->title('จองคิว');
         $data['notification_number'] = $this->notification_number();
         $this->load->view('admin/header', $data);
         $this->load->view('admin/reserve_view');
@@ -197,32 +208,34 @@ class Admin extends CI_Controller {
 
     public function user_detail($user_id) {
         $q_user = $this->admin_model->get_user_detail($user_id);
-        foreach ($q_user as $user):
-            $data['firstname'] = $user->firstname;
-            $data['lastname'] = $user->lastname;
-            $data['email'] = $user->email;
-            $data['phone'] = $user->phone;
-            $data['level'] = $user->level;
-            $data['recent_login'] = $user->recent_login;
-        endforeach;
-        $q_position = $this->admin_model->get_user_position($user_id);
-        foreach ($q_position as $position) :
-            $data['position'] = $position->position;
-            $data['position_thai'] = $this->position_in_thai($data['position']);
-            $data['detail'] = $position->detail;
-            $data['supervisor'] = $position->supervisor;
-            $data['institute'] = $position->institute;
-        endforeach;
-        $data['q_reservation'] = $this->admin_model->get_user_reservation($user_id);
+        if (!empty($user_id) && $q_user->num_rows() > 0):
+            foreach ($q_user->result() as $user):
+                $data['firstname'] = $user->firstname;
+                $data['lastname'] = $user->lastname;
+                $data['email'] = $user->email;
+                $data['phone'] = $user->phone;
+                $data['level'] = $user->level;
+                $data['recent_login'] = $user->recent_login;
+            endforeach;
+            $q_position = $this->admin_model->get_user_position($user_id);
+            foreach ($q_position as $position) :
+                $data['position'] = $position->position;
+                $data['position_thai'] = $this->position_in_thai($data['position']);
+                $data['detail'] = $position->detail;
+                $data['supervisor'] = $position->supervisor;
+                $data['institute'] = $position->institute;
+            endforeach;
+            $data['q_reservation'] = $this->admin_model->get_user_reservation($user_id);
 
-        $data['user_id'] = $user_id;
-
-        $data['notification_number'] = $this->notification_number();
-
-        $data['title'] = 'ข้อมูลผู้ใช้';
-        $this->load->view('admin/header', $data);
-        $this->load->view('admin/user_detail_view');
-        $this->load->view('templates/footer');
+            $data['user_id'] = $user_id;
+            $data['title'] = $this->title('ข้อมูลผู้ใช้');
+            $data['notification_number'] = $this->notification_number();
+            $this->load->view('admin/header', $data);
+            $this->load->view('admin/user_detail_view');
+            $this->load->view('templates/footer');
+        else:
+            redirect('admin/calendar');
+        endif;
     }
 
     public function position_in_thai($position) {
@@ -257,13 +270,13 @@ class Admin extends CI_Controller {
 
     public function notifications() {
         if ($this->notification_number() > 0):
-            $query = $this->admin_model->get_notification_data();
-            foreach ($query->result() as $row) {
-                $reserved_id = $row->reserved_id;
-                if ($this->admin_model->is_checked_notification($reserved_id)):
+            $data['q_reserved'] = $this->admin_model->get_notification_data();
+            $data['notification_number'] = $this->notification_number();
 
-                endif;
-            }
+            $this->load->view('admin/notifications_view', $data);
+
+        else:
+            redirect('admin/calendar');
         endif;
     }
 

@@ -107,24 +107,40 @@
     <table class="table table-bordered">
         <tr>
             <th>วันที่จอง</th>
-            <th><?php if($level == 10): echo 'status'; else: echo 'จำนวน Sample'; endif; ?></th>
-            <th>รายละเอียด<?php if($level != 10): echo ' Sample'; endif; ?></th>
+            <th><?php
+                if ($level == 10): echo 'status';
+                else: echo 'จำนวน Sample';
+                endif;
+                ?></th>
+            <th>รายละเอียด<?php
+                if ($level != 10): echo ' Sample';
+                endif;
+                ?></th>
             <th>จองเมื่อ</th>
             <th>ปรับปรุงข้อมูลเมื่อ</th>
         </tr>
-        <?php foreach ($q_reservation->result() as $reservation): ?>
+        <?php if ($q_reservation->num_rows() == 0): ?>
             <tr>
-                <td>
-                    <a title="ดูรายระเอียด" href="<?php echo site_url(); ?>/admin/reserved_detail/<?php echo $reservation->reserved_date . '/' . $reservation->reserved_id; ?>">
-                        <?php echo $reservation->reserved_date; ?>
-                    </a>
-                </td>
-                <td style="text-align: center;"><?php if($level == 10): echo $reservation->status; else: echo $reservation->sample_number; endif; ?></td>
-                <td><?php echo $reservation->detail; ?></td>
-                <td style="text-align: center;"><?php echo $reservation->created; ?></td>
-                <td style="text-align: center;"><?php echo $reservation->updated; ?></td>
+                <td colspan="5" style="text-align: center;">-- ไม่มีข้อมูลการจอง --</td>
             </tr>
-        <?php endforeach; ?>
+        <?php else: ?>
+            <?php foreach ($q_reservation->result() as $reservation): ?>
+                <tr>
+                    <td>
+                        <a title="ดูรายระเอียด" href="<?php echo site_url(); ?>/admin/reserved_detail/<?php echo $reservation->reserved_date . '/' . $reservation->reserved_id; ?>">
+                            <?php echo $reservation->reserved_date; ?>
+                        </a>
+                    </td>
+                    <td style="text-align: center;"><?php
+                        if ($level == 10): echo $reservation->status;
+                        else: echo $reservation->sample_number;
+                        endif;
+                        ?></td>
+                    <td><?php echo $reservation->detail; ?></td>
+                    <td style="text-align: center;"><?php echo $reservation->created; ?></td>
+                    <td style="text-align: center;"><?php echo $reservation->updated; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </table>
-
 </section>

@@ -57,14 +57,15 @@
                             <li><a title="ข้อมูลส่วนตัว" href="<?php echo $user_url; ?>"><strong><?php echo $this->session->userdata('firstname') . ' ' . $this->session->userdata('lastname'); ?></strong></a></li>
                             <li>
                                 <?php if ($notification_number > 0): ?>
-                                    <a title="Notifications" href="#">Notifications
+                                    <a title="Notifications" href="<?php echo site_url() . '/admin/notifications'; ?>" data-toggle="modal" data-target="#myModal">Notifications
                                         <span class="badge" style="background-color: red;"><?php echo $notification_number; ?></span>
                                     </a>
                                 <?php endif; ?>
-                            </li>
+                            </li>                            
                             <li><a title="ออกจากระบบ" href="<?php echo site_url(); ?>/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
                         </ul>
-
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
+
             </nav>
+

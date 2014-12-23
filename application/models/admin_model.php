@@ -94,8 +94,7 @@ class Admin_model extends CI_Model {
 
     public function get_user_detail($user_id) {
         $this->db->where('user_id', $user_id);
-        $q_user = $this->db->get('xps_user');
-        return $q_user->result();
+        return $this->db->get('xps_user');
     }
 
     public function get_user_position($user_id) {
@@ -161,6 +160,7 @@ class Admin_model extends CI_Model {
     public function get_notification_data() {
         $user_id = $this->session->userdata('user_id');
         $this->db->where('user_id !=', $user_id);
+        $this->db->order_by("created", "desc");
         return $this->db->get('xps_reservation');
     }
 
@@ -177,13 +177,21 @@ class Admin_model extends CI_Model {
     public function is_checked_notification($reserved_id) {
         $user_id = $this->session->userdata('user_id');
         $this->db->where('reserved_id', $reserved_id);
-        $this->db->where('user_id', $user_id);
-        $query = $this->db->get('xps_notifications');
-        if ($query->num_rows() > 0):
-            return TRUE;
-        else:
-            return FALSE;
-        endif;
+        $q_reserved = $this->db->get('xps_reservation');
+        foreach ($q_reserved->result() as $reserved):
+            if ($user_id == $reserved->user_id):
+                return TRUE;
+            else:
+                $this->db->where('reserved_id', $reserved_id);
+                $this->db->where('user_id', $user_id);
+                $query = $this->db->get('xps_notifications');
+                if ($query->num_rows() > 0):
+                    return TRUE;
+                else:
+                    return FALSE;
+                endif;
+            endif;
+        endforeach;
     }
 
     public function clear_checked_data() {

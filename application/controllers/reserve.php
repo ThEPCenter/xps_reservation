@@ -36,6 +36,9 @@ class Reserve extends CI_Controller {
     }
 
     public function reserved_date($date_reserve) {
+        if (empty($date_reserve)):
+            redirect('admin/calendar');
+        endif;
         $this->reserve_model->check_reserved_date($date_reserve);
         $data['date_stamp'] = strtotime($date_reserve);
         $data['user_id'] = $this->session->userdata('user_id');
