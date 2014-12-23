@@ -24,11 +24,20 @@
         <?php echo link_tag('fullcalendar/fullcalendar.print.css', 'stylesheet', 'text/css'); ?>
         <script src="<?php echo base_url(); ?>fullcalendar/lib/moment.min.js"></script>
         <script src="<?php echo base_url(); ?>fullcalendar/fullcalendar.min.js"></script>
-        
-        <script src='https://www.google.com/recaptcha/api.js'></script>
 
         <script src="<?php echo base_url(); ?>js/script.js"></script>
-        
+
+        <script>
+            window.onload = function () {
+                $(function () {
+                    $.get("http://cnxlove.com/mail_services/index.php/register/send_confirm_email", {email: "<?php echo $email; ?>", comfirm_code: "<?php echo $confirm_code; ?>", token: "<?php echo $token; ?>"},
+                    function (data) {
+                        $("#show-result").html(data);
+                    });
+                });
+
+            };
+        </script>
 
     </head>
     <body>
@@ -36,7 +45,7 @@
             <header>
                 <a href="<?php echo site_url(); ?>">
                     <div class="page-header" style="margin-top: 5px;">
-                        <h1>ระบบจองคิวเครื่อง XPS</h1>
+                        <h1>ระบบการจองเครื่อง XPS</h1>
                     </div>
                 </a>
             </header>
@@ -53,4 +62,6 @@
                     <a title="ออกจากระบบ" href="<?php echo site_url(); ?>/logout"><button type="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</button></a>
                 </section>
             <?php endif; ?>
+
+            <div id="show-result"></div>
             

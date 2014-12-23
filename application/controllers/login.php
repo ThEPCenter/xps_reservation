@@ -21,7 +21,15 @@ class Login extends CI_Controller {
     }
 
     public function index() {
-        $data['title'] = "Login";
+        $data['title'] = "ระบบการจองเครื่อง XPS";
+        $this->load->view('templates/header', $data);
+        $this->load->view('login_view', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function error($error_msg) {
+        $data['title'] = "Error Register";
+        $data['error_msg'] = urldecode($error_msg);
         $this->load->view('templates/header', $data);
         $this->load->view('login_view', $data);
         $this->load->view('templates/footer');
@@ -39,38 +47,8 @@ class Login extends CI_Controller {
         } else {
             // If user did validate, 
             // Send them to members area
-            if ($this->session->userdata('active') == 1):
-                redirect('home');
-            else:
-                $user_id = $this->session->userdata('user_id');
-                // Logout
-                $this->session->sess_destroy();
-                redirect("login/not_confirm/$user_id");
-            endif;
+            redirect('home');
         }
-    }
-
-    public function not_confirm($user_id) {
-        if (!empty($user_id)):
-            $user_id = $this->security->xss_clean($user_id);
-            $this->db->where('user_id', $user_id);
-            $query = $this->db->get('xps_user');
-            if ($query->num_rows() == 1):
-                foreach ($query->result() as $row):
-                    $email = $row->email;
-                endforeach;
-            else:
-                redirect('login');
-            endif;
-
-            $data['email'] = $email;
-            $data['title'] = "ยังไม่ได้ยืนยันอีเมล";
-            $this->load->view('templates/header', $data);
-            $this->load->view('not_confirm_view', $data);
-            $this->load->view('templates/footer');
-        else:
-            redirect('login');
-        endif;
     }
 
 }
