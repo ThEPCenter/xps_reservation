@@ -10,8 +10,7 @@
         <title><?php echo $title; ?></title>
         <!-- Bootstrap core CSS -->
         <?php echo link_tag('bootstrap/css/bootstrap.css', 'stylesheet', 'text/css'); ?>
-        <?php echo link_tag('bootstrap/css/bootstrap-theme.css', 'stylesheet', 'text/css'); ?>
-        <?php echo link_tag('css/style.css', 'stylesheet', 'text/css'); ?>
+        <?php echo link_tag('bootstrap/css/bootstrap-theme.css', 'stylesheet', 'text/css'); ?>        
 
         <script src="<?php echo base_url(); ?>js/jquery.min.js"></script>
         <script src="<?php echo base_url(); ?>bootstrap/js/bootstrap.js"></script>
@@ -47,6 +46,8 @@
 
             });
         </script>
+        
+        <?php echo link_tag('css/style.css', 'stylesheet', 'text/css'); ?>
 
         <style>
             #calendar {

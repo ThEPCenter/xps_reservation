@@ -12,7 +12,7 @@
         <?php echo link_tag('bootstrap/css/bootstrap.css', 'stylesheet', 'text/css'); ?>
         <?php echo link_tag('bootstrap/css/bootstrap-theme.css', 'stylesheet', 'text/css'); ?>
         <?php echo link_tag('jquery-ui/jquery-ui.css', 'stylesheet', 'text/css'); ?>
-        <?php echo link_tag('css/style.css', 'stylesheet', 'text/css'); ?>
+
 
         <script src="<?php echo base_url(); ?>js/jquery.min.js"></script>
         <script src="<?php echo base_url(); ?>jquery-ui/jquery-ui.js"></script>
@@ -24,11 +24,12 @@
         <?php echo link_tag('fullcalendar/fullcalendar.print.css', 'stylesheet', 'text/css'); ?>
         <script src="<?php echo base_url(); ?>fullcalendar/lib/moment.min.js"></script>
         <script src="<?php echo base_url(); ?>fullcalendar/fullcalendar.min.js"></script>
-        
+
         <script src='https://www.google.com/recaptcha/api.js'></script>
 
         <script src="<?php echo base_url(); ?>js/script.js"></script>
-        
+
+        <?php echo link_tag('css/style.css', 'stylesheet', 'text/css'); ?>
 
     </head>
     <body>

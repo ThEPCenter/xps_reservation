@@ -28,7 +28,7 @@ th {
 .notif-list {
     border-bottom: 1px solid #ddd;
     overflow: hidden;
-    width: 430px;
+    // width: 430px;
     height: 65px;    
 }
 
@@ -36,3 +36,6 @@ th {
     background-color: #e9eaed;
 }
 
+.modal-content, .btn, .fc-event {
+    border-radius: 0;
+}

@@ -3,7 +3,7 @@
 
 <h3 style="margin-left: 40px;"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> รายการแจ้งเตือน</h3>
 
-<ul style="list-style-type: none;">
+<ul style="list-style-type: none; -webkit-padding-start: 0;">
 
     <?php foreach ($q_reserved->result() as $reservation): ?>
 
@@ -18,14 +18,14 @@
 
             <li class="notif-list">
                 <div style="">
-                    <a style="color: #333; display: block; outline: none; padding: 7px 27px 7px 8px;
+                    <a style="color: #333; display: block; outline: none; padding: 7px 27px 7px 16px;
                        text-decoration: none;
                        " 
                        title="ดูรายระเอียด" href="<?php echo site_url(); ?>/admin/reserved_detail/<?php echo $reservation->reserved_date; ?>/<?php echo $reservation->reserved_id; ?>">
                         คุณ <strong><?php echo $firstname . ' ' . $lastname; ?></strong>
                         จองคิววันที่ <strong><?php echo $reservation->reserved_date; ?></strong>
                         <br>
-                        จองเมื่อ <strong><?php echo $reservation->created; ?></strong>
+                        <span style="color: #9197a3;" class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <abbr style="font-size: 12px; color: #9197a3; cursor: context-menu; border-bottom: none;" title="<?php echo date("l, F d, Y. H:ia", strtotime($reservation->created)); ?>" data-utime="1419389429" data-shorten="1"><?php echo $this->new_date_time->fb_th_time(strtotime($reservation->created)); ?></abbr>
                     </a>
                 </div>
             </li>

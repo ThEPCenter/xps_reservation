@@ -11,12 +11,15 @@
         <!-- Bootstrap core CSS -->
         <?php echo link_tag('bootstrap/css/bootstrap.css', 'stylesheet', 'text/css'); ?>
         <?php echo link_tag('bootstrap/css/bootstrap-theme.css', 'stylesheet', 'text/css'); ?>
-        <?php echo link_tag('css/style.css', 'stylesheet', 'text/css'); ?>
+        
 
         <script src="<?php echo base_url(); ?>js/jquery.min.js"></script>
         <script src="<?php echo base_url(); ?>bootstrap/js/bootstrap.js"></script>
 
         <?php echo link_tag('fullcalendar/fullcalendar.css', 'stylesheet', 'text/css'); ?>
+        
+        <?php echo link_tag('css/style.css', 'stylesheet', 'text/css'); ?>
+        
         <?php
         $link = array(
             'href' => 'fullcalendar/fullcalendar.print.css',
@@ -105,7 +108,7 @@
                             <li><a title="ข้อมูลส่วนตัว" href="<?php echo $user_url; ?>"><strong><?php echo $this->session->userdata('firstname') . ' ' . $this->session->userdata('lastname'); ?></strong></a></li>
                             <li>
                                 <?php if ($notification_number > 0): ?>
-                                    <a title="Notifications" href="<?php echo site_url() . '/admin/notifications'; ?>" data-toggle="modal" data-target="#myModal">Notifications
+                                    <a title="รายการแจ้งเตือน" href="<?php echo site_url() . '/admin/notifications'; ?>" data-toggle="modal" data-target="#myModal0">Notifications
                                         <span class="badge" style="background-color: red;"><?php echo $notification_number; ?></span>
                                     </a>
                                 <?php endif; ?>
@@ -130,15 +133,15 @@
                 <P>&nbsp;</P>
             </section>
 
-            
+
             <!-- Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+            <div class="modal fade" id="myModal0" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog"  style="width: 432px;">
+                    <div class="modal-content" style="border-radius: 0;">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                        </div>
+                        </div> 
                         <div class="modal-body">
                             ...
                         </div>

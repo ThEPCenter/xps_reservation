@@ -106,29 +106,13 @@
 
                 <button style="margin-top: 20px;" type="submit" class="btn btn-default btn-lg">สมัครใช้งาน</button>                
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <span style="cursor: pointer; text-decoration: underline;" data-toggle="modal" data-target=".bs-example-modal-lg">ข้อตกลงและเงื่อนไข</span>
+                
             </div>
         </div> <!-- /.input-group -->
     </form>
 
 
 
-    <!-- Large modal -->
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">                        
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">ข้อตกลงและเงื่อนไข</h4>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
 </section>

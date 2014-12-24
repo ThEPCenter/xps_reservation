@@ -57,7 +57,7 @@
                             <li><a title="ข้อมูลส่วนตัว" href="<?php echo $user_url; ?>"><strong><?php echo $this->session->userdata('firstname') . ' ' . $this->session->userdata('lastname'); ?></strong></a></li>
                             <li>
                                 <?php if ($notification_number > 0): ?>
-                                    <a title="Notifications" href="<?php echo site_url() . '/admin/notifications'; ?>" data-toggle="modal" data-target="#myModal">Notifications
+                                    <a title="รายการแจ้งเตือน" href="<?php echo site_url() . '/admin/notifications'; ?>" data-toggle="modal" data-target="#myModal0">Notifications
                                         <span class="badge" style="background-color: red;"><?php echo $notification_number; ?></span>
                                     </a>
                                 <?php endif; ?>
@@ -68,4 +68,23 @@
                 </div><!-- /.container-fluid -->
 
             </nav>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal0" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog"  style="width: 432px;">
+                    <div class="modal-content" style="border-radius: 0;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
