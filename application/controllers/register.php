@@ -55,7 +55,7 @@ class Register extends CI_Controller {
                 'institute' => $institute,
             );
 
-            $data['title'] = 'ยืนยันข้อมูล การสมัคร';
+            $data['title'] = 'ตรวจสอบข้อมูลการสมัคร';
             $this->load->view('templates/header', $data);
             $this->load->view('register/process_view');
             $this->load->view('templates/footer');

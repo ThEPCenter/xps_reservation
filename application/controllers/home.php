@@ -29,6 +29,7 @@ class Home extends CI_Controller {
 
         $this->load->model('login_model');
         $this->load->model('reserve_model');
+        $this->load->model('user_model');
     }
 
     public function index() {
@@ -61,8 +62,12 @@ class Home extends CI_Controller {
         endfor;
         $data['free_date'] = $free_text;
 
-        $data['firstname'] = $this->session->userdata('firstname');
-        $data['lastname'] = $this->session->userdata('lastname');
+        $q_user = $this->user_model->get_user_detail($this->session->userdata('user_id'));
+        foreach ($q_user->result() as $user):
+            $data['firstname'] = $user->firstname;
+            $data['lastname'] = $user->lastname;
+        endforeach;
+        
         $data['email'] = $this->session->userdata('email');
         $data['title'] = 'ปฏิทินรายการจองคิว XPS';
         $this->load->view('home_view', $data);

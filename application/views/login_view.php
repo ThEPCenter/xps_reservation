@@ -104,15 +104,14 @@
                 <input class="form-control" name="institute" id="institute" required style="width: 100%; margin-bottom: 10px;">
                 <br>
 
-                <button style="margin-top: 20px;" type="submit" class="btn btn-default btn-lg">สมัครใช้งาน</button>                
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                
+                <button style="margin-top: 20px;" type="submit" class="btn btn-default btn-lg">สมัครใช้งาน</button>
+
             </div>
         </div> <!-- /.input-group -->
     </form>
 
 
 
-    
+
 
 </section>

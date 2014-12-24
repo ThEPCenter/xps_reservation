@@ -36,8 +36,21 @@ class User extends CI_Controller {
     }
 
     public function user_detail($user_id) {
+        // Not allow to see othor's profile.
+        if ($user_id != $this->session->userdata('user_id')):
+            redirect('home');
+        endif;
+
+        // Not allow to empty
+        if (empty($user_id)):
+            redirect('home');
+        endif;
+
         $q_user = $this->user_model->get_user_detail($user_id);
-        foreach ($q_user as $user):
+        if ($q_user->num_rows() == 0):
+            redirect('home');
+        endif;
+        foreach ($q_user->result() as $user):
             $data['firstname'] = $user->firstname;
             $data['lastname'] = $user->lastname;
             $data['email'] = $user->email;
@@ -75,7 +88,7 @@ class User extends CI_Controller {
                 return 'อื่นๆ';
         endswitch;
     }
-    
+
     public function edit_user_detail() {
         $this->user_model->update_user_detail();
         $user_id = $this->input->post('user_id');

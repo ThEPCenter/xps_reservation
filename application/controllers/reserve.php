@@ -29,6 +29,7 @@ class Reserve extends CI_Controller {
 
         // ========= Commom Models ========= //
         $this->load->model('reserve_model');
+        $this->load->model('user_model');
     }
 
     public function index() {
@@ -42,8 +43,14 @@ class Reserve extends CI_Controller {
         $this->reserve_model->check_reserved_date($date_reserve);
         $data['date_stamp'] = strtotime($date_reserve);
         $data['user_id'] = $this->session->userdata('user_id');
-        $data['firstname'] = $this->session->userdata('firstname');
-        $data['lastname'] = $this->session->userdata('lastname');
+
+
+        $q_user = $this->user_model->get_user_detail($this->session->userdata('user_id'));
+        foreach ($q_user->result() as $user):
+            $data['firstname'] = $user->firstname;
+            $data['lastname'] = $user->lastname;
+        endforeach;
+
         $data["title"] = 'จองคิว';
         $this->load->view('templates/header', $data);
         $this->load->view('reserve_view');
@@ -79,8 +86,13 @@ class Reserve extends CI_Controller {
         if ($data['user_id'] != $this->session->userdata('user_id')):
             redirect('home/calendar');
         endif;
-        $data['firstname'] = $this->session->userdata('firstname');
-        $data['lastname'] = $this->session->userdata('lastname');
+        
+        $q_user = $this->user_model->get_user_detail($this->session->userdata('user_id'));
+        foreach ($q_user->result() as $user):
+            $data['firstname'] = $user->firstname;
+            $data['lastname'] = $user->lastname;
+        endforeach;
+        
         $data['reserve_date'] = $reserve_date;
         $data['title'] = 'ข้อมูลการจอง';
         $this->load->view('templates/header', $data);

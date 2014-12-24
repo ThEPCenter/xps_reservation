@@ -9,8 +9,7 @@ class User_model extends CI_Model {
 
     public function get_user_detail($user_id) {
         $this->db->where('user_id', $user_id);
-        $q_user = $this->db->get('xps_user');
-        return $q_user->result();
+        return $this->db->get('xps_user');
     }
 
     public function get_user_position($user_id) {
