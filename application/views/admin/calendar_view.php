@@ -105,7 +105,7 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">                        
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a title="ข้อมูลส่วนตัว" href="<?php echo $user_url; ?>"><strong><?php echo $this->session->userdata('firstname') . ' ' . $this->session->userdata('lastname'); ?></strong></a></li>
+                            <li><a title="ข้อมูลส่วนตัว" href="<?php echo $user_url; ?>"><strong><?php echo $firstname . ' ' . $lastname; ?></strong></a></li>
                             <li>
                                 <?php if ($notification_number > 0): ?>
                                     <a title="รายการแจ้งเตือน" href="<?php echo site_url() . '/admin/notifications'; ?>" data-toggle="modal" data-target="#myModal0">Notifications

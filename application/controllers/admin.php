@@ -31,6 +31,7 @@ class Admin extends CI_Controller {
         // ========= Commom Models ========= //
         $this->load->model('admin_model');
         $this->load->model('login_model');
+        $this->load->model('user_model');
     }
 
     public function index() {
@@ -65,11 +66,16 @@ class Admin extends CI_Controller {
         endfor;
         $data['free_date'] = $free_text;
 
-        $data['firstname'] = $this->session->userdata('firstname');
-        $data['lastname'] = $this->session->userdata('lastname');
         $data['email'] = $this->session->userdata('email');
 
+        $q_user = $this->user_model->get_user_detail($this->session->userdata('user_id'));
+        foreach ($q_user->result() as $user):
+            $data['firstname'] = $user->firstname;
+            $data['lastname'] = $user->lastname;
+        endforeach;
+
         $data['title'] = $this->title('Calendar');
+
         $data['notification_number'] = $this->notification_number();
 
         $this->load->view('admin/calendar_view', $data);
@@ -154,6 +160,13 @@ class Admin extends CI_Controller {
             $data['lastname'] = $r_user->lastname;
         endforeach;
 
+        $q_user = $this->user_model->get_user_detail($this->session->userdata('user_id'));
+        foreach ($q_user->result() as $user):
+            $data['my_firstname'] = $user->firstname;
+            $data['my_lastname'] = $user->lastname;
+        endforeach;
+
+
         $data['reserve_date'] = $reserve_date;
         $data['title'] = 'ข้อมูลการจองคิว';
         $data['notification_number'] = $this->notification_number();
@@ -177,6 +190,13 @@ class Admin extends CI_Controller {
         $data['user_id'] = $this->session->userdata('user_id');
         $data['firstname'] = $this->session->userdata('firstname');
         $data['lastname'] = $this->session->userdata('lastname');
+
+        $q_user = $this->user_model->get_user_detail($this->session->userdata('user_id'));
+        foreach ($q_user->result() as $user):
+            $data['my_firstname'] = $user->firstname;
+            $data['my_lastname'] = $user->lastname;
+        endforeach;
+
         $data['title'] = $this->title('จองคิว');
         $data['notification_number'] = $this->notification_number();
         $this->load->view('admin/header', $data);
@@ -227,6 +247,12 @@ class Admin extends CI_Controller {
                 $data['institute'] = $position->institute;
             endforeach;
             $data['q_reservation'] = $this->admin_model->get_user_reservation($user_id);
+
+            $q_user = $this->user_model->get_user_detail($this->session->userdata('user_id'));
+            foreach ($q_user->result() as $user):
+                $data['my_firstname'] = $user->firstname;
+                $data['my_lastname'] = $user->lastname;
+            endforeach;
 
             $data['user_id'] = $user_id;
             $data['title'] = $this->title('ข้อมูลผู้ใช้');
