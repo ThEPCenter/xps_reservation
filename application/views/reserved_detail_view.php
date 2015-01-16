@@ -4,7 +4,8 @@
     <h3 style="margin-bottom: 15px;"><?php echo date("l, F j, Y", strtotime($reserved_date)); ?></h3>
     <p><span class="detail-title">ชื่อผู้จอง:</span> <?php echo $firstname; ?> <?php echo $lastname; ?></p>
     <p><span class="detail-title">จำนวน Sample:</span> <?php echo $sample_number; ?></p>
-    <p><span class="detail-title">รายละเอียด Sample:</span> <?php echo $detail; ?></p>
+    <p><span class="detail-title">รายละเอียด Sample:</span> <br> 
+        <?php echo nl2br($detail); ?></p>
     <p><span class="detail-title">จองเมื่อ:</span> <?php echo $created; ?></p>
     <?php if (!empty($updated)): ?>
         <p><span class="detail-title">ปรับปรุงข้อมูลเมื่อ:</span> <?php echo $updated; ?></p>
@@ -88,7 +89,8 @@
 
                     <p>ชื่อผู้จอง: <?php echo $firstname; ?> <?php echo $lastname; ?></p>
                     <p>จำนวน Sample: <?php echo $sample_number; ?></p>
-                    <p>รายละเอียด Sample: <?php echo $detail; ?></p>
+                    <p>รายละเอียด Sample: <br> 
+                        <?php echo nl2br($detail); ?></p>
 
                 </div>
                 <div class="modal-footer">

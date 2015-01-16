@@ -136,7 +136,7 @@
                         else: echo $reservation->sample_number;
                         endif;
                         ?></td>
-                    <td><?php echo $reservation->detail; ?></td>
+                    <td><?php echo nl2br($reservation->detail); ?></td>
                     <td style="text-align: center;"><?php echo $reservation->created; ?></td>
                     <td style="text-align: center;"><?php echo $reservation->updated; ?></td>
                 </tr>

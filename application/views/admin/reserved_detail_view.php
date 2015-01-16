@@ -10,10 +10,10 @@
     <?php endif; ?>
 
     <?php if ($status != 'holiday' && $status != 'maintenance'): ?>
-        <p><span class="detail-title">รายละเอียด Sample:</span> <?php echo $detail; ?></p>
+        <p><span class="detail-title">รายละเอียด Sample:</span> <br><?php echo nl2br($detail); ?></p>
     <?php else: ?>
         <p><span class="detail-title">Status:</span> <?php echo $status; ?></p>
-        <p><span class="detail-title">รายละเอียด:</span> <?php echo $detail; ?></p>
+        <p><span class="detail-title">รายละเอียด:</span> <?php echo nl2br($detail); ?></p>
     <?php endif; ?>
     <p><span class="detail-title">จองเมื่อ:</span> <?php echo $created; ?></p>
     <p><span class="detail-title">ปรับปรุงข้อมูลเมื่อ:</span> <?php echo $updated; ?></p>
@@ -138,10 +138,10 @@
                     <p>ชื่อผู้จอง: <?php echo $firstname; ?> <?php echo $lastname; ?></p>
                     <?php if ($status != 'holiday' && $status != 'maintenance'): ?>
                         <p>จำนวน Sample: <?php echo $sample_number; ?></p>
-                        <p>รายละเอียด Sample: <?php echo $detail; ?></p>
+                        <p>รายละเอียด Sample: <br><?php echo nl2br($detail); ?></p>
                     <?php else: ?>
                         <p>Status: <?php echo $status; ?></p>
-                        <p>รายละเอียด: <?php echo $detail; ?></p>
+                        <p>รายละเอียด: <?php echo nl2br($detail); ?></p>
                     <?php endif; ?>                
 
                 </div>
