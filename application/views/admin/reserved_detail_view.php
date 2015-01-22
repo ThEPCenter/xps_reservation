@@ -16,12 +16,16 @@
         <p><span class="detail-title">รายละเอียด:</span> <?php echo nl2br($detail); ?></p>
     <?php endif; ?>
     <p><span class="detail-title">จองเมื่อ:</span> <?php echo $created; ?></p>
+    <?php if (!empty($updated) && $updated != '0000-00-00 00:00:00'): ?>
     <p><span class="detail-title">ปรับปรุงข้อมูลเมื่อ:</span> <?php echo $updated; ?></p>
+    <?php endif; ?>    
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> แก้ไข</button> &nbsp;
     <a href="<?php echo site_url() . '/admin/calendar'; ?>"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> ไปปฏิทิน</button></a> 
     &nbsp;
+    
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> แก้ไข</button> &nbsp;
+    
     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> ลบการจองนี้</button>
 
 

@@ -68,7 +68,7 @@ class User extends CI_Controller {
         $data['q_reservation'] = $this->user_model->get_user_reservation($user_id);
 
         $data['user_id'] = $user_id;
-        $data['title'] = 'ข้อมูลผู้ใช้';
+        $data['title'] = 'ข้อมูลผู้ใช้ | ระบบจองคิวเครื่อง XPS';
         $this->load->view('templates/header', $data);
         $this->load->view('user_detail_view');
         $this->load->view('templates/footer');

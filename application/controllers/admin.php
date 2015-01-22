@@ -51,7 +51,10 @@ class Admin extends CI_Controller {
         $query = $this->admin_model->get_reserved_date();
         $all_text = '';
         foreach ($query->result() as $row):
-            $all_text .= '{"title":"' . $this->reserved_status($row->status) . '","start":"' . $row->reserved_date . '","url":"' . $this->url_detail($row->reserved_date, $row->reserved_id) . '","color":"' . $this->status_color($row->status) . '","className":"occupied"},';
+            $q_user = $this->admin_model->get_user_detail($row->user_id);
+            foreach($q_user->result() as $user):
+                $all_text .= '{"title":"' . $this->reserved_status($row->status) . '\n' . $user->firstname . '\n' . $user->lastname . '","start":"' . $row->reserved_date . '","url":"' . $this->url_detail($row->reserved_date, $row->reserved_id) . '","color":"' . $this->status_color($row->status) . '","className":"occupied"},';
+            endforeach;            
 
         endforeach;
         $data['reserved_data'] = $all_text;
@@ -74,7 +77,7 @@ class Admin extends CI_Controller {
             $data['lastname'] = $user->lastname;
         endforeach;
 
-        $data['title'] = $this->title('Calendar');
+        $data['title'] = $this->title('ปฏิทินรายการจองคิว | ระบบจองคิวเครื่อง XPS');
 
         $data['notification_number'] = $this->notification_number();
 
@@ -175,7 +178,7 @@ class Admin extends CI_Controller {
         if ($is_check != TRUE) {
             $this->admin_model->notification_checked($reserved_id);
         }
-        $data['title'] = $this->title('ข้อมูลการจองคิว');
+        $data['title'] = $this->title('ข้อมูลการจองคิว | ระบบจองคิวเครื่อง XPS');
         $data['notification_number'] = $this->notification_number();
         $this->load->view('admin/header', $data);
         $this->load->view('admin/reserved_detail_view');
@@ -197,7 +200,7 @@ class Admin extends CI_Controller {
             $data['my_lastname'] = $user->lastname;
         endforeach;
 
-        $data['title'] = $this->title('จองคิว');
+        $data['title'] = $this->title('จองคิว | ระบบจองคิวเครื่อง XPS');
         $data['notification_number'] = $this->notification_number();
         $this->load->view('admin/header', $data);
         $this->load->view('admin/reserve_view');
@@ -255,7 +258,7 @@ class Admin extends CI_Controller {
             endforeach;
 
             $data['user_id'] = $user_id;
-            $data['title'] = $this->title('ข้อมูลผู้ใช้');
+            $data['title'] = $this->title('ข้อมูลผู้ใช้ | ระบบจองคิวเครื่อง XPS');
             $data['notification_number'] = $this->notification_number();
             $this->load->view('admin/header', $data);
             $this->load->view('admin/user_detail_view');

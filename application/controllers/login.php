@@ -21,7 +21,7 @@ class Login extends CI_Controller {
     }
 
     public function index() {
-        $data['title'] = "ระบบการจองเครื่อง XPS";
+        $data['title'] = "ระบบจองคิวเครื่อง XPS";
         $this->load->view('templates/header', $data);
         $this->load->view('login_view', $data);
         $this->load->view('templates/footer');

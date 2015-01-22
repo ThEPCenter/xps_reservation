@@ -41,11 +41,7 @@ class Home extends CI_Controller {
         $all_text = '';
         foreach ($query->result() as $row):
             if ($row->user_id == $this->session->userdata('user_id')):
-                if ($this->session->userdata('level') == 10):
-                    $all_text .= '{"title":"' . $this->reserved_status($row->status) . '","start": "' . $row->reserved_date . '", "url":"' . $this->url_detail($row->reserved_date) . '","color":"' . $this->status_color($row->status) . '","className":"occupied"},';
-                else:
-                    $all_text .= '{"title":"คุณ' . $this->reserved_status($row->status) . '","start": "' . $row->reserved_date . '", "url":"' . $this->url_detail($row->reserved_date) . '","color":"green","className":"occupied"},';
-                endif;
+                $all_text .= '{"title":"คุณ' . $this->reserved_status($row->status) . '","start": "' . $row->reserved_date . '", "url":"' . $this->url_detail($row->reserved_date) . '","color":"green","className":"occupied"},';
             else:
                 $all_text .= '{"title":"' . $this->reserved_status($row->status) . '","start":"' . $row->reserved_date . '","color":"' . $this->status_color($row->status) . '","className":"occupied"},';
             endif;
@@ -60,6 +56,13 @@ class Home extends CI_Controller {
                 $free_text .= '{"title":"ว่าง","start":"' . date("Y-m-d", strtotime("+$i days")) . '","url":"' . $this->url_reserve($date_reserve) . '","color": "white","textColor":"black","className":"unoccupied"},';
             endif;
         endfor;
+        /* Saturday and Sunday */
+        for ($j = 1; $j < $date_nums; $j++):
+            if ($this->sat_and_sun($j)):
+                $date_reserve = date("Y-m-d", strtotime("+$j days"));
+                $free_text .= '{"title":"ว่าง","start":"' . date("Y-m-d", strtotime("+$j days")) . '","url":"#satSunModal","color": "white","textColor":"black","className":"unoccupied"},';
+            endif;
+        endfor;
         $data['free_date'] = $free_text;
 
         $q_user = $this->user_model->get_user_detail($this->session->userdata('user_id'));
@@ -67,9 +70,9 @@ class Home extends CI_Controller {
             $data['firstname'] = $user->firstname;
             $data['lastname'] = $user->lastname;
         endforeach;
-        
+
         $data['email'] = $this->session->userdata('email');
-        $data['title'] = 'ปฏิทินรายการจองคิว XPS';
+        $data['title'] = 'ปฏิทินรายการจองคิว XPS | ระบบจองคิวเครื่อง XPS';
         $this->load->view('home_view', $data);
         $this->load->view('templates/footer');
     }
@@ -133,6 +136,22 @@ class Home extends CI_Controller {
     public function url_edit($date_reserve) {
         if ($this->session->userdata('level') != 10):
             return site_url() . '/reserve/edit_reserved/' . $date_reserve;
+        endif;
+    }
+
+    public function sat_and_sun($num) {
+        $date_to_check = date("Y-m-d", strtotime("+$num days"));
+        $day_to_check = date("l", strtotime("+$num days"));
+        $this->db->where('reserved_date', $date_to_check);
+        $query = $this->db->get('xps_reservation');
+        if ($query->num_rows() == 0):
+            if ($day_to_check == 'Saturday' OR $day_to_check == 'Sunday'):
+                return TRUE;
+            else:
+                return FALSE;
+            endif;
+        else:
+            return FALSE;
         endif;
     }
 

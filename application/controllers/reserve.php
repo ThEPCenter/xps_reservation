@@ -51,7 +51,7 @@ class Reserve extends CI_Controller {
             $data['lastname'] = $user->lastname;
         endforeach;
 
-        $data["title"] = 'จองคิว';
+        $data["title"] = 'จองคิว | ระบบจองคิวเครื่อง XPS';
         $this->load->view('templates/header', $data);
         $this->load->view('reserve_view');
         $this->load->view('templates/footer');
@@ -94,9 +94,10 @@ class Reserve extends CI_Controller {
         endforeach;
         
         $data['reserve_date'] = $reserve_date;
-        $data['title'] = 'ข้อมูลการจอง';
+        $data['title'] = 'ข้อมูลการจอง | ระบบจองคิวเครื่อง XPS';
         $this->load->view('templates/header', $data);
         $this->load->view('reserved_detail_view');
+        /* $this->load->view('reserved_edit_view'); */ // For edit and delete.
         $this->load->view('templates/footer');
     }
 

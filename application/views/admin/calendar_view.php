@@ -44,7 +44,7 @@
                     defaultDate: '<?php echo date("Y-m-d"); ?>',
                     editable: false,
                     eventLimit: true, // allow "more" link when too many events
-                    events: [
+                    events: [                        
 <?php echo $reserved_data . $free_date; ?>
                     ]
                 });

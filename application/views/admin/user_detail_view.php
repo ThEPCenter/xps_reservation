@@ -18,17 +18,17 @@
     <p><span class="detail-title">สถาบัน/หน่วยงาน:</span> <?php echo $institute; ?></p>
 
     <!-- Button trigger modal -->
-    <?php if ($this->session->userdata('user_id') == $user_id): ?>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-top: 10px;">
-            <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> แก้ไขข้อมูล
-        </button>
-    <?php endif; ?>
-
     <a href="<?php echo site_url(); ?>/admin/calendar">
         <button type="button" class="btn btn-default" style="margin-top: 10px;">
             <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> ไปปฏิทิน
         </button>
     </a>
+    &nbsp;
+    <?php if ($this->session->userdata('user_id') == $user_id): ?>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-top: 10px;">
+            <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> แก้ไขข้อมูล
+        </button>
+    <?php endif; ?>    
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
