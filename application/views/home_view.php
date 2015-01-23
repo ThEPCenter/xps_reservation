@@ -30,6 +30,19 @@
         <script>
             $(document).ready(function () {
 
+<?php
+if ($this->session->userdata('see_cond') == 'first'):
+    ?>
+                    $('#myLargeModal').modal('show');
+
+    <?php
+    $u_data = array('see_cond' => 'second');
+    $this->session->set_userdata($u_data);
+endif;
+?>
+
+
+
                 $('#calendar').fullCalendar({
                     header: {
                         left: 'prev,next today',
@@ -42,9 +55,12 @@
                     events: [
 <?php echo $reserved_data . $free_date; ?>
                     ]
-                });
+                }); // End FullCalendar
 
-            });
+
+            }); // End jQuery
+
+
         </script>
 
         <?php echo link_tag('css/style.css', 'stylesheet', 'text/css'); ?>
@@ -128,26 +144,3 @@
                 </h4>
                 <p>&nbsp;</p>
             </section>
-
-            <!-- Button trigger modal -->
-            <a href="#" data-toggle="modal" data-target="#satSunModal">
-                Sat and Sun
-            </a>
-
-            <!-- Modal -->
-            <div class="modal fade" id="satSunModal" tabindex="-1" role="dialog" aria-labelledby="satSunModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">การจองคิว วันเสาร์หรือวันอาทิตย์</h4>
-                        </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>

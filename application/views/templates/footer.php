@@ -4,7 +4,7 @@
 
     <span style="cursor: pointer; text-decoration: underline;" data-toggle="modal" data-target=".bs-example-modal-lg">ข้อตกลงและเงื่อนไข</span>
     <!-- Large modal -->
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div id="myLargeModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">                        
                 <div class="modal-header">
@@ -14,10 +14,12 @@
                 <div class="modal-body">
 
                     <p>1. ผู้ดูแลเครื่อง XPS สามารถ แก้ไข ย้าย หรือยกเลิก คิวที่จอง โดยไม่จำเป็นต้องแจ้งให้ทราบล่วงหน้า</p>
-                    
+
                     <p>2. ผู้ขอรับบริการจะต้องทำการโอนเงินตาม <a target="_blank" href="http://thep-center.org/src2/views/central-equipment.php?eq=XPS">รายละเอียด</a> ภายใน 7 วัน หลังจากกที่ได้จองไว้ ไม่เช่นนั้นคิวของท่านจะถูกเลื่อนให้ผู้ขอรับบริการท่านถัดไปทันที</p>
-                                        
-                    <p>3. สามารถยกเลิกการจองหรือแก้ไขรายละเอียดการจองได้ที่ 087-7250960 หรือ chanvit82@hotmail.com ในวันและเวลาราชการ</p>
+
+                    <p>3. สามารถ<strong>ยกเลิก</strong>การจองหรือ<strong>แก้ไข</strong>รายละเอียดการจองได้ที่ 087-7250960 หรือ chanvit82@hotmail.com ในวันและเวลาราชการ</p>
+
+                    <p>4. การให้บริการเครื่อง XPS ใน<strong>วันเสาร์-อาทิตย์</strong>จะคิดอัตราค่าบริการพิเศษ ถ้ามีความประสงค์จะจองคิววันเสาร์หรือวันอาทิตย์ กรุณาติดต่อผู้ดูแลเครื่องโดยตรง</p>
 
                 </div>
                 <div class="modal-footer">
@@ -28,7 +30,7 @@
     </div>
 
     <p>&nbsp;</p>
-    
+
     <p style="text-align: center;">
         &copy; 
         <?php
@@ -42,5 +44,6 @@
 </footer>
 
 </div> <!-- /.container -->
+
 </body>
 </html>

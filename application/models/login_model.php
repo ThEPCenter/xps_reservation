@@ -45,7 +45,8 @@ class Login_model extends CI_Model {
                 'last_login' => $row->last_login,
                 'level' => $row->level,
                 'active' => $row->active,
-                'validated' => true
+                'validated' => true,
+                'see_cond' => 'first'
             );
 
             $this->session->set_userdata($data);

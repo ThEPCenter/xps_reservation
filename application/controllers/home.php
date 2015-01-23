@@ -57,13 +57,18 @@ class Home extends CI_Controller {
             endif;
         endfor;
         /* Saturday and Sunday */
+        /**
         for ($j = 1; $j < $date_nums; $j++):
             if ($this->sat_and_sun($j)):
                 $date_reserve = date("Y-m-d", strtotime("+$j days"));
-                $free_text .= '{"title":"ว่าง","start":"' . date("Y-m-d", strtotime("+$j days")) . '","url":"#satSunModal","color": "white","textColor":"black","className":"unoccupied"},';
+                $free_text .= '{"title":"ว่าง","start":"' . date("Y-m-d", strtotime("+$j days")) . '","color": "white","textColor":"#9900cc","className":"satsun"},';
             endif;
         endfor;
+         * 
+         * 
+         */
         $data['free_date'] = $free_text;
+        
 
         $q_user = $this->user_model->get_user_detail($this->session->userdata('user_id'));
         foreach ($q_user->result() as $user):
