@@ -27,7 +27,9 @@
 
 <section>
     <h3>สมัครใช้งาน</h3>
-    <form role="form" class="form-inline" method="post" action="<?php echo site_url(); ?>/register/data_confirmation">
+    <div class="row">
+        <div class="col-sm-6 col-md-6">
+            <form role="form" class="form-inline" method="post" action="<?php echo site_url(); ?>/register/data_confirmation">
         <div class="input-group" style="margin-right: 15px;">
             <div class="form-group">
                 <div class="input-group" style="margin-right: 15px;">
@@ -109,9 +111,14 @@
             </div>
         </div> <!-- /.input-group -->
     </form>
-
-
-
-
+        </div>
+        <div class="col-sm-6 col-md-6">
+            ข้อแนะนำสำหรับระบบการจองเพื่อขอรับบริการด้วยเทคนิค XPS แบบ online <br>
+            1. ท่านสามารถกรอกรายเพื่อสมัครสมาชิกและจองคิวล่วงหน้าได้ผ่านระบบ online <br>
+            2. ผู้ขอรับบริการสามารถตรวจสอบคิวของท่านได้เมื่อ login เข้าสู่ระบบ <br>
+            3. ทางศูนย์ฯ ขอสงวนสิทธิ์ในการเปลี่ยนแปลงโดยไม่ต้องแจ้งให้ทราบล่วงหน้า <br>
+            4. หลังจากที่ได้ทำการจองแบบ online แล้ว ผู้ขอใช้บริการยังคงต้องส่งเอกสารบอรับบริการตามปกติจนกว่าระบบ online จะหมดช่วงทดสอบ 
+        </div>
+    </div>
 
 </section>
